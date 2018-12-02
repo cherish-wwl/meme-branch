@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/meme.iml" filepath="$PROJECT_DIR$/meme.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meme-core/meme-core.iml" filepath="$PROJECT_DIR$/meme-core/meme-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meme-im/meme-im.iml" filepath="$PROJECT_DIR$/meme-im/meme-im.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meme-jar/meme-jar.iml" filepath="$PROJECT_DIR$/meme-jar/meme-jar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meme-pay/meme-pay.iml" filepath="$PROJECT_DIR$/meme-pay/meme-pay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meme-qiniu/meme-qiniu.iml" filepath="$PROJECT_DIR$/meme-qiniu/meme-qiniu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meme-web/meme-web.iml" filepath="$PROJECT_DIR$/meme-web/meme-web.iml" />
+    </modules>
+  </component>
+</project>

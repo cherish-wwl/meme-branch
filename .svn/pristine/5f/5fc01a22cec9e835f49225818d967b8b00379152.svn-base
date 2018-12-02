@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.core.dao.DictGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.core.pojo.DictGroup" >
+    <id column="dictgroupid" property="dictgroupid" jdbcType="BIGINT" />
+    <result column="dictgroupcode" property="dictgroupcode" jdbcType="VARCHAR" />
+    <result column="dictgroupname" property="dictgroupname" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dictgroupid, dictgroupcode, dictgroupname, type, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dict_group
+    where dictgroupid = #{dictgroupid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_dict_group
+    where dictgroupid = #{dictgroupid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.core.pojo.DictGroup" >
+    insert into sys_dict_group (dictgroupid, dictgroupcode, dictgroupname, 
+      type, remark)
+    values (#{dictgroupid,jdbcType=BIGINT}, #{dictgroupcode,jdbcType=VARCHAR}, #{dictgroupname,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.core.pojo.DictGroup">
+    insert into sys_dict_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dictgroupid != null" >
+        dictgroupid,
+      </if>
+      <if test="dictgroupcode != null" >
+        dictgroupcode,
+      </if>
+      <if test="dictgroupname != null" >
+        dictgroupname,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dictgroupid != null" >
+        #{dictgroupid,jdbcType=BIGINT},
+      </if>
+      <if test="dictgroupcode != null" >
+        #{dictgroupcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictgroupname != null" >
+        #{dictgroupname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.core.pojo.DictGroup" >
+    update sys_dict_group
+    <set >
+      <if test="dictgroupcode != null" >
+        dictgroupcode = #{dictgroupcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictgroupname != null" >
+        dictgroupname = #{dictgroupname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dictgroupid = #{dictgroupid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.core.pojo.DictGroup" >
+    update sys_dict_group
+    set dictgroupcode = #{dictgroupcode,jdbcType=VARCHAR},
+      dictgroupname = #{dictgroupname,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where dictgroupid = #{dictgroupid,jdbcType=BIGINT}
+  </update>
+</mapper>

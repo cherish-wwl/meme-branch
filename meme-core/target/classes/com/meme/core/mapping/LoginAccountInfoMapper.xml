@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.core.dao.LoginAccountInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.core.pojo.LoginAccountInfo" >
+    <id column="loginid" property="loginid" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+    <result column="homephone" property="homephone" jdbcType="VARCHAR" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="organid" property="organid" jdbcType="BIGINT" />
+    <result column="deptid" property="deptid" jdbcType="BIGINT" />
+    <result column="postid" property="postid" jdbcType="BIGINT" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    loginid, username, nickname, sex, address, email, cellphone, homephone, avatar, sign, 
+    organid, deptid, postid, qq
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_login_account_info
+    where loginid = #{loginid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_login_account_info
+    where loginid = #{loginid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.core.pojo.LoginAccountInfo" >
+    insert into sys_login_account_info (loginid, username, nickname, 
+      sex, address, email, 
+      cellphone, homephone, avatar, 
+      sign, organid, deptid, 
+      postid, qq)
+    values (#{loginid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{cellphone,jdbcType=VARCHAR}, #{homephone,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
+      #{sign,jdbcType=VARCHAR}, #{organid,jdbcType=BIGINT}, #{deptid,jdbcType=BIGINT}, 
+      #{postid,jdbcType=BIGINT}, #{qq,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.core.pojo.LoginAccountInfo">
+    insert into sys_login_account_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginid != null" >
+        loginid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="cellphone != null" >
+        cellphone,
+      </if>
+      <if test="homephone != null" >
+        homephone,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="organid != null" >
+        organid,
+      </if>
+      <if test="deptid != null" >
+        deptid,
+      </if>
+      <if test="postid != null" >
+        postid,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginid != null" >
+        #{loginid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="homephone != null" >
+        #{homephone,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="organid != null" >
+        #{organid,jdbcType=BIGINT},
+      </if>
+      <if test="deptid != null" >
+        #{deptid,jdbcType=BIGINT},
+      </if>
+      <if test="postid != null" >
+        #{postid,jdbcType=BIGINT},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.core.pojo.LoginAccountInfo" >
+    update sys_login_account_info
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="cellphone != null" >
+        cellphone = #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="homephone != null" >
+        homephone = #{homephone,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="organid != null" >
+        organid = #{organid,jdbcType=BIGINT},
+      </if>
+      <choose>
+      	<when test="deptid != null">
+      	deptid = #{deptid,jdbcType=BIGINT},
+      	</when>
+      	<otherwise>
+      	deptid = null,
+      	</otherwise>
+      </choose>
+      <choose>
+      	<when test="postid != null">
+      	postid = #{postid,jdbcType=BIGINT},
+      	</when>
+      	<otherwise>
+      	postid = null,
+      	</otherwise>
+      </choose>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where loginid = #{loginid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.core.pojo.LoginAccountInfo" >
+    update sys_login_account_info
+    set username = #{username,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      cellphone = #{cellphone,jdbcType=VARCHAR},
+      homephone = #{homephone,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      organid = #{organid,jdbcType=BIGINT},
+      deptid = #{deptid,jdbcType=BIGINT},
+      postid = #{postid,jdbcType=BIGINT},
+      qq = #{qq,jdbcType=VARCHAR}
+    where loginid = #{loginid,jdbcType=BIGINT}
+  </update>
+</mapper>

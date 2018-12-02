@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/task  
+                        http://www.springframework.org/schema/task/spring-task-4.0.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+                        http://www.springframework.org/schema/util
+                        http://www.springframework.org/schema/util/spring-util-4.0.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        				http://www.springframework.org/schema/websocket 
+        				http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+    <context:annotation-config/>
+    
+	<context:component-scan base-package="com.meme.*">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
+	<!-- <bean id="dataMapper" class="com.meme.core.spring.converter.Long2StringJsonConverter"></bean> -->
+	
+	<!-- 定义跳转的文件的前后缀 ，视图模式配置-->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 文件上传参数配置-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <property name="defaultEncoding" value="utf-8" />  
+        <property name="maxUploadSize" value="2097152000" />  
+        <property name="maxInMemorySize" value="4096000" />  
+    </bean>
+    
+    <bean id="exceptionResolver" class="com.meme.core.spring.ExceptionResolver">
+    	<property name="defaultErrorView" value="/common/exception/exception"></property>
+    	<!-- 默认返回页面的request attribute -->
+    	<property name="exceptionAttribute" value="exception"></property>
+    	<property name="exceptionMappings">
+    		<props>
+    			<prop key="java.lang.Exception">/common/exception/exception</prop>
+    		</props>
+    	</property>
+    </bean>
+    
+    <mvc:resources location="/static/" mapping="/static/**"/>
+    <mvc:resources location="/resources/" mapping="/resources/**"/>
+    <!-- 拦截器配置 -->
+    <mvc:interceptors>
+     	<mvc:interceptor>
+    		<mvc:mapping path="/system/**"/>
+    		<mvc:mapping path="/service/**"/>
+    		<mvc:mapping path="/file/**"/>
+    		<!-- 即时通讯后台管理端url前缀 -->
+    		<mvc:mapping path="/im/**"/>
+    		<mvc:mapping path="/pay/alipay/**.do"/>
+    		
+    		<mvc:exclude-mapping path="/"/>
+    		<mvc:exclude-mapping path="/system/index"/>
+    		<mvc:exclude-mapping path="/system/index.do"/>
+    		<mvc:exclude-mapping path="/system/login.do"/>
+    		<mvc:exclude-mapping path="/system/logout.do"/>
+    		<mvc:exclude-mapping path="/system/validateCode.do"/>
+    		<mvc:exclude-mapping path="/system/**/open/**"/>
+    		
+    		<mvc:exclude-mapping path="/system/test/index*"/>
+    		<mvc:exclude-mapping path="/pay/alipay/getReturn.do"/>
+    		<mvc:exclude-mapping path="/pay/alipay/getNotice.do"/>
+    		<mvc:exclude-mapping path="/pay/alipay/query.do"/>
+    		
+    		<bean id="loginInterceptor" class="com.meme.core.interceptor.LoginInterceptor"></bean>
+    	</mvc:interceptor>
+    	
+    	<!-- <mvc:interceptor>
+    		<mvc:mapping path="/**"/>
+    		
+    		<mvc:exclude-mapping path="/member/**"/>
+    		<bean id="cookieInterceptor" class="com.meme.member.interceptor.CookieInterceptor"></bean>
+    	</mvc:interceptor> -->
+    	
+    	<!-- 前端页面拦截器 -->
+    	<mvc:interceptor>
+    		<mvc:mapping path="/member/**"/>
+    		
+    		<!-- 开放接口不拦截 -->
+    		<mvc:exclude-mapping path="/member/open/api/*"/>
+    		
+    		<mvc:exclude-mapping path="/member/publics/**"/>
+    		<mvc:exclude-mapping path="/member/changyan/**"/>
+    		<mvc:exclude-mapping path="/member/register"/>
+    		<mvc:exclude-mapping path="/member/register.do"/>
+    		<mvc:exclude-mapping path="/member/cregister"/>
+    		<mvc:exclude-mapping path="/member/cregister.do"/>
+    		<mvc:exclude-mapping path="/member/doRegister"/>
+    		<mvc:exclude-mapping path="/member/doRegister.do"/>
+    		<mvc:exclude-mapping path="/member/login"/>
+    		<mvc:exclude-mapping path="/member/wxLogin"/>
+    		<mvc:exclude-mapping path="/member/QQLogin"/>
+    		<mvc:exclude-mapping path="/member/login.do"/>
+    		<mvc:exclude-mapping path="/member/clogin"/>
+    		<mvc:exclude-mapping path="/member/clogin.do"/>
+    		<mvc:exclude-mapping path="/member/doLogin"/>
+    		<mvc:exclude-mapping path="/member/doLogin.do"/>
+    		<mvc:exclude-mapping path="/member/loadValidateRules"/>
+    		<mvc:exclude-mapping path="/member/loadValidateRules.do"/>
+    		<mvc:exclude-mapping path="/member/logout"/>
+    		<mvc:exclude-mapping path="/member/logout.do"/>
+    		<mvc:exclude-mapping path="/member/init_tmp_member"/>
+    		<mvc:exclude-mapping path="/member/init_tmp_member.do"/>
+    		<mvc:exclude-mapping path="/member/im/validate"/>
+    		
+    		<bean id="memberInterceptor" class="com.meme.member.interceptor.MemberInterceptor"></bean>
+    	</mvc:interceptor>
+    	
+    	<!-- 限制临时访客操作 -->
+    	<mvc:interceptor>
+    		<mvc:mapping path="/member/im/doApplyFriend"/>
+    		<mvc:mapping path="/member/im/doApplyFriend.do"/>
+    		<mvc:mapping path="/member/im/acceptFriend"/>
+    		<mvc:mapping path="/member/im/acceptFriend.do"/>
+    		<mvc:mapping path="/member/im/delFriend"/>
+    		<mvc:mapping path="/member/im/delFriend.do"/>
+    		<mvc:mapping path="/member/center/**"/>
+    		<bean id="restrictInterceptor" class="com.meme.member.interceptor.RestrictInterceptor"></bean>
+    	</mvc:interceptor>
+	</mvc:interceptors>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+	        <list>
+	        	<!-- spring mvc返回字符串而非json时，不添加双引号 -->
+	        	<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	        		<constructor-arg value="UTF-8" index="0">  
+			    </constructor-arg>  
+			    <property name="supportedMediaTypes">  
+			        <list>  
+			            <value>text/plain;charset=UTF-8</value>  
+			        </list>  
+			    </property>
+	        	</bean>
+	        	<!-- JsonConverter在4.1.6版本正常，4.3.6版本失效，为spring mvc返回的json数据字段和值添加双引号，避免Long类型数据在前端页面ajax解析时丢失精度 -->
+	        	<bean class="com.meme.core.spring.converter.JsonConverter">
+	        		<property name="objectMapper">
+	        			<!-- JsonConverter失效时使用自定义objectmapper把long类型转成字符串 -->
+						<bean class="com.meme.core.spring.mapper.Long2StringJsonMapper">
+	                        <property name="dateFormat">
+	                            <bean class="java.text.SimpleDateFormat">
+	                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+	                            </bean>
+	                        </property>
+	                    </bean>
+					</property>
+					<property name="supportedMediaTypes">
+						<list>
+							<value>application/json;charset=UTF-8</value>
+							<value>text/plain;charset=UTF-8</value>
+							<value>text/html;charset=UTF-8</value>
+						</list>
+					</property>
+	        	</bean>
+	        </list>
+        </property>
+	</bean>
+	
+	<!--开启定时任务 @Scheduled注解   -->
+	<task:scheduler id="taskScheduler" pool-size="10"/>
+	<task:annotation-driven scheduler="taskScheduler" mode="proxy"/>
+	<import resource="spring-ehcache.xml"/>
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<bean id="springContextManager" class="com.meme.core.spring.SpringContextManager"/>
+	
+	<bean id="initCacheListener" class="com.meme.core.spring.listener.InitCacheListener"></bean>
+	
+	<util:properties id="CONSTANTS_PROPERTIES" location="classpath:constants.properties" local-override="true"/>
+	
+	<!-- <bean id="dictEhCacheInitializer" class="com.meme.core.cache.ehcache.initializer.DictEhCacheInitializer"></bean>
+	<bean id="paramsEhCacheInitializer" class="com.meme.core.cache.ehcache.initializer.ParamsEhCacheInitializer"></bean>
+	<bean id="tableEhCacheInitializer" class="com.meme.core.cache.ehcache.initializer.TableEhCacheInitializer"></bean>
+	<bean id="dictCache" class="com.meme.core.cache.DictCache" init-method="init">
+		<property name="initializer" ref="dictEhCacheInitializer"></property>
+	</bean>
+	<bean id="paramsCache" class="com.meme.core.cache.ParamsCache" init-method="init">
+		<property name="initializer" ref="paramsEhCacheInitializer"></property>
+	</bean> -->
+	
+	
+	<!-- websocket握手拦截配置 -->
+	<bean id="websocket" class="com.meme.im.websocket.WebSocketServer"/>
+	<websocket:handlers allowed-origins="*">  
+		<!-- 配置路径时，避免配置成spring拦截器拦截的路径前缀，防止在移动端浏览器浏览时会被spring拦截器拦截导致200错误，握手失败 -->
+	    <websocket:mapping path="/websocket/message" handler="websocket"/>
+	    <websocket:handshake-interceptors>  
+	    	<bean class="com.meme.im.websocket.interceptor.HandshakeInterceptor"/>  
+	    </websocket:handshake-interceptors>  
+	</websocket:handlers>
+</beans>

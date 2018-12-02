@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeContentMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeContent" >
+    <id column="contentid" property="contentid" jdbcType="BIGINT" />
+    <result column="catid" property="catid" jdbcType="BIGINT" />
+    <result column="columnid" property="columnid" jdbcType="BIGINT" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="contentname" property="contentname" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="lrc" property="lrc" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="upvote" property="upvote" jdbcType="INTEGER" />
+    <result column="downvote" property="downvote" jdbcType="INTEGER" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="publishtime" property="publishtime" jdbcType="TIMESTAMP" />
+    <result column="sectioncode" property="sectioncode" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.meme.im.pojo.MemeContent" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    contentid, catid, columnid, memberid, author, contentname, cover, url, lrc, remark, 
+    upvote, downvote, sortno, state, addtime, publishtime,sectioncode
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <sql id="sql_list">
+  	con.contentid, con.catid, con.columnid,con.content,
+  	con.memberid, con.author, con.contentname, con.cover, con.url, 
+    con.lrc, con.remark, con.upvote, con.downvote, con.sortno, 
+    con.state, con.addtime, con.publishtime,con.sectioncode
+  </sql>
+  <sql id="v_list">
+  	cat.catname,col.columnname,col.columncode,mem.account,mem.nickname,mem.avatar
+  </sql>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT 
+	<include  refid="sql_list"/>
+	,
+	<include  refid="v_list"/>
+	FROM meme_content con
+	LEFT JOIN meme_category cat ON con.catid = cat.id
+	LEFT JOIN meme_column col ON con.columnid = col.id
+	<!-- LEFT JOIN meme_column_section sec ON con.sectionid = sec.id -->
+	LEFT JOIN meme_member mem ON con.memberid = mem.memberid
+	WHERE 1=1
+	<if test="catid != null and catid != 0">
+		AND con.catid=#{catid}
+	</if>
+	<if test="columnid != null and columnid != 0">
+		AND con.columnid=#{columnid}
+	</if>
+	<!-- <if test="sectionid != null and sectionid != 0">
+		AND con.sectionid=#{sectionid}
+	</if> -->
+	<if test="member_str != null and member_str != ''">
+		AND (
+			mem.account=#{member_str}
+			or mem.nickname=#{member_str}
+		)
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and (
+			con.contentname LIKE CONCAT('%', #{searchKey},'%')
+			or con.content LIKE CONCAT('%', #{searchKey},'%')
+			or con.remark LIKE CONCAT('%', #{searchKey},'%')
+		)
+	</if>
+	<if test="startdate != null">
+		AND date_format(con.addtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(con.addtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by con.addtime desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*) FROM meme_content con
+	LEFT JOIN meme_category cat ON con.catid = cat.id
+	LEFT JOIN meme_column col ON con.columnid = col.id
+	<!-- LEFT JOIN meme_column_section sec ON con.sectionid = sec.id -->
+	LEFT JOIN meme_member mem ON con.memberid = mem.memberid
+	WHERE 1=1
+	<if test="catid != null and catid != 0">
+		AND con.catid=#{catid}
+	</if>
+	<if test="columnid != null and columnid != 0">
+		AND con.columnid=#{columnid}
+	</if>
+	<!-- <if test="sectionid != null and sectionid != 0">
+		AND con.sectionid=#{sectionid}
+	</if> -->
+	<if test="member_str != null and member_str != ''">
+		AND (
+			mem.account=#{member_str}
+			or mem.nickname=#{member_str}
+		)
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and (
+			con.contentname LIKE CONCAT('%', #{searchKey},'%')
+			or con.content LIKE CONCAT('%', #{searchKey},'%')
+			or con.remark LIKE CONCAT('%', #{searchKey},'%')
+		)
+	</if>
+	<if test="startdate != null">
+		AND date_format(con.addtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(con.addtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+  </select>
+  <select id="selectContentSections" resultType="java.util.HashMap" parameterType="java.lang.Long">
+  	select sec.*,csec.id as csec_id from meme_column_section sec
+	left join meme_content_section csec on csec.sectionid=sec.id
+	WHERE sec.columnid=#{columnid}
+  </select>
+  <select id="selectContentPagination" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT
+		con.*,
+		sec.dictitemname AS sectionname,
+		mem.account,
+		mem.nickname,
+		mem.avatar,
+		cat.catname,
+		col.columnname,
+		col.columncode
+	FROM meme_content con
+	LEFT JOIN meme_category cat ON cat.id = con.catid
+	LEFT JOIN meme_column col ON col.id = con.columnid
+	LEFT JOIN meme_member mem ON mem.memberid = con.memberid
+	LEFT JOIN sys_dict_item sec ON sec.dictitemcode = con.sectioncode
+	WHERE 1=1
+	<if test="columnid != null and columnid != 0">
+		AND con.columnid=#{columnid}
+	</if>
+	<if test="catid != null and catid != 0">
+		AND con.catid=#{catid}
+	</if>
+	<if test="memberid != null and memberid != 0">
+		AND con.memberid=#{memberid}
+	</if>
+	<if test="sectioncode != null and sectioncode !=''">
+		AND con.sectioncode=#{sectioncode}
+	</if>
+	<if test="startdate != null">
+		AND date_format(con.addtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(con.addtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by con.addtime,con.sortno desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countContentPagination" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT COUNT(*) FROM (SELECT
+		con.*,
+		sec.dictitemname AS sectionname,
+		mem.account,
+		mem.nickname,
+		mem.avatar,
+		cat.catname,
+		col.columnname,
+		col.columncode
+	FROM meme_content con
+	LEFT JOIN meme_category cat ON cat.id = con.catid
+	LEFT JOIN meme_column col ON col.id = con.columnid
+	LEFT JOIN meme_member mem ON mem.memberid = con.memberid
+	LEFT JOIN sys_dict_item sec ON sec.dictitemcode = con.sectioncode
+	WHERE 1=1
+	<if test="columnid != null and columnid != 0">
+		AND con.columnid=#{columnid}
+	</if>
+	<if test="catid != null and catid != 0">
+		AND con.catid=#{catid}
+	</if>
+	<if test="memberid != null and memberid != 0">
+		AND con.memberid=#{memberid}
+	</if>
+	<if test="sectioncode != null and sectioncode !=''">
+		AND con.sectioncode=#{sectioncode}
+	</if>
+	<if test="startdate != null">
+		AND date_format(con.addtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(con.addtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>) TMP_T
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from meme_content
+    where contentid = #{contentid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from meme_content
+    where contentid = #{contentid,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeContent" >
+    insert into meme_content (contentid, catid, columnid, 
+      memberid, author, contentname, 
+      cover, url, lrc, remark, 
+      upvote, downvote, sortno, 
+      state, addtime, publishtime, 
+      content,sectioncode)
+    values (#{contentid,jdbcType=BIGINT}, #{catid,jdbcType=BIGINT}, #{columnid,jdbcType=BIGINT}, 
+      #{memberid,jdbcType=BIGINT}, #{author,jdbcType=VARCHAR}, #{contentname,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{lrc,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{upvote,jdbcType=INTEGER}, #{downvote,jdbcType=INTEGER}, #{sortno,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP}, #{publishtime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR}), #{sectioncode,jdbcType=VARCHAR}
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeContent" >
+    insert into meme_content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contentid != null" >
+        contentid,
+      </if>
+      <if test="catid != null" >
+        catid,
+      </if>
+      <if test="columnid != null" >
+        columnid,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="contentname != null" >
+        contentname,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="lrc != null" >
+        lrc,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="upvote != null" >
+        upvote,
+      </if>
+      <if test="downvote != null" >
+        downvote,
+      </if>
+      <if test="sortno != null" >
+        sortno,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="publishtime != null" >
+        publishtime,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="sectioncode != null" >
+        sectioncode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contentid != null" >
+        #{contentid,jdbcType=BIGINT},
+      </if>
+      <if test="catid != null" >
+        #{catid,jdbcType=BIGINT},
+      </if>
+      <if test="columnid != null" >
+        #{columnid,jdbcType=BIGINT},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="contentname != null" >
+        #{contentname,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="lrc != null" >
+        #{lrc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="upvote != null" >
+        #{upvote,jdbcType=INTEGER},
+      </if>
+      <if test="downvote != null" >
+        #{downvote,jdbcType=INTEGER},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishtime != null" >
+        #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sectioncode != null" >
+        #{sectioncode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeContent" >
+    update meme_content
+    <set >
+      <if test="catid != null" >
+        catid = #{catid,jdbcType=BIGINT},
+      </if>
+      <if test="columnid != null" >
+        columnid = #{columnid,jdbcType=BIGINT},
+      </if>
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="contentname != null" >
+        contentname = #{contentname,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="lrc != null" >
+        lrc = #{lrc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="upvote != null" >
+        upvote = #{upvote,jdbcType=INTEGER},
+      </if>
+      <if test="downvote != null" >
+        downvote = #{downvote,jdbcType=INTEGER},
+      </if>
+      <if test="sortno != null" >
+        sortno = #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishtime != null" >
+        publishtime = #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sectioncode != null" >
+        sectioncode = #{sectioncode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where contentid = #{contentid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.meme.im.pojo.MemeContent" >
+    update meme_content
+    set catid = #{catid,jdbcType=BIGINT},
+      columnid = #{columnid,jdbcType=BIGINT},
+      memberid = #{memberid,jdbcType=BIGINT},
+      author = #{author,jdbcType=VARCHAR},
+      contentname = #{contentname,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      lrc = #{lrc,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      upvote = #{upvote,jdbcType=INTEGER},
+      downvote = #{downvote,jdbcType=INTEGER},
+      sortno = #{sortno,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      publishtime = #{publishtime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR},
+      sectioncode = #{sectioncode,jdbcType=VARCHAR}
+    where contentid = #{contentid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeContent" >
+    update meme_content
+    set catid = #{catid,jdbcType=BIGINT},
+      columnid = #{columnid,jdbcType=BIGINT},
+      memberid = #{memberid,jdbcType=BIGINT},
+      author = #{author,jdbcType=VARCHAR},
+      contentname = #{contentname,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      lrc = #{lrc,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      upvote = #{upvote,jdbcType=INTEGER},
+      downvote = #{downvote,jdbcType=INTEGER},
+      sortno = #{sortno,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      publishtime = #{publishtime,jdbcType=TIMESTAMP},
+      sectioncode = #{sectioncode,jdbcType=VARCHAR}
+    where contentid = #{contentid,jdbcType=BIGINT}
+  </update>
+  
+   <select id="selectByPaginationSectionView" resultType="java.util.LinkedHashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT
+		con.*,
+		sec.dictitemname
+	FROM meme_content con
+	LEFT JOIN sys_dict_item sec ON sec.dictitemcode = con.sectioncode
+	WHERE 1=1
+	<if test="columnid != null and columnid != 0">
+		AND con.columnid=#{columnid}
+	</if>
+	AND con.sectioncode IS NOT NULL
+	<if test="sectioncode != null and sectioncode !=''">
+		AND con.sectioncode=#{sectioncode}
+	</if>
+	<if test="startdate != null">
+		AND date_format(con.addtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(con.addtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by con.addtime,con.sortno desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countSelctionView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT COUNT(*) FROM (SELECT
+		con.*,
+		sec.dictitemname
+	FROM meme_content con
+	LEFT JOIN sys_dict_item sec ON sec.dictitemcode = con.sectioncode
+	WHERE 1=1
+	<if test="columnid != null and columnid != 0">
+		AND con.columnid=#{columnid}
+	</if>
+	AND con.sectioncode IS NOT NULL
+	<if test="sectioncode != null and sectioncode !=''">
+		AND con.sectioncode=#{sectioncode}
+	</if>
+	<if test="startdate != null">
+		AND date_format(con.addtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(con.addtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+	) TMP_T
+  </select>
+</mapper>

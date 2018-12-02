@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"  
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/task  
+                        http://www.springframework.org/schema/task/spring-task-4.0.xsd
+                        http://www.springframework.org/schema/tx
+                     	http://www.springframework.org/schema/tx/spring-tx.xsd
+                     	http://www.springframework.org/schema/aop 
+                     	http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+	              <value>classpath:druid.properties</value>
+	              <value>classpath:redis.properties</value>
+	              <value>classpath:taskexecutor.properties</value>
+	        </list>
+		</property>
+	</bean>
+    <import resource="mybatis-datasource-meme.xml"/>
+    <import resource="task-context.xml"/>
+    <import resource="redis-datasource.xml"/>
+	<tx:annotation-driven/>
+    
+    <!-- 代码切换数据源配置-->
+    <!-- <bean id="sqlSessionTemplate" class="com.meme.core.spring.db.ExpressSqlSessionTemplate">
+    	<constructor-arg ref="sqlSessionFactory"/>
+    	<property name="targetSqlSessionFactorys">
+        	<map>
+            	<entry value-ref="sqlSessionFactory" key="meme"/>
+            	<entry value-ref="schemaSqlSessionFactory" key="schema"/>
+        	</map>
+    	</property>
+    </bean> 
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage">
+			<value>
+				com.meme.core.dao,
+				com.meme.workflow.dao,
+				com.meme.schema.dao
+			</value>
+		</property>
+		<property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"></property>
+		<property name="markerInterface" value="com.meme.core.spring.db.SqlMapper"></property>
+	</bean> -->
+	
+	<bean id="jspFilter" class="com.meme.core.jsp.filter.JspFilter">
+		<property name="exclude_mapping">
+			<list>
+				<value>/test/*</value>
+				<value>/index.jsp</value>
+			</list>
+		</property>
+	</bean>
+	
+	<context:component-scan base-package="com.meme.*">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
+	</context:component-scan>
+</beans>

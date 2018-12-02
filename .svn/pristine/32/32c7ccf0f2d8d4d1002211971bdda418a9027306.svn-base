@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.core.dao.PositionMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.core.pojo.Position" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="organid" property="organid" jdbcType="BIGINT" />
+    <result column="deptid" property="deptid" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ViewResultMap" type="com.meme.core.pojo.PositionView" extends="BaseResultMap">
+  	<result column="deptName" property="deptName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, organid, deptid, remark
+  </sql>
+  <sql id="View_Column_List">
+  	sys_position.id, sys_position.name, sys_position.organid, sys_position.deptid, sys_position.remark,sys_department.name as deptName
+  </sql>
+  <select id="selectPositionViewById" resultMap="ViewResultMap" parameterType="java.lang.Long">
+  	select 
+  	<include refid="View_Column_List" />
+	from sys_position
+	LEFT JOIN sys_department on sys_position.deptid=sys_department.id
+    where sys_position.id=#{id}
+  </select>
+  <select id="selectByPaginationView" resultMap="ViewResultMap" parameterType="com.meme.core.form.Form">
+  	select 
+  	<include refid="View_Column_List" />
+	from sys_position
+	LEFT JOIN sys_department on sys_position.deptid=sys_department.id where 1=1 and sys_position.organid=#{organid}
+	<if test="searchKey != null and searchKey != ''">
+		and sys_position.name like CONCAT('%', #{searchKey},'%')
+	</if>
+	<if test="sort != null and sort != ''">
+  		order by ${sort} ${order}
+  	</if>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.core.form.Form">
+  	select count(*) from sys_position
+	LEFT JOIN sys_department on sys_position.deptid=sys_department.id where 1=1 and sys_position.organid=#{organid}
+	<if test="searchKey != null and searchKey != ''">
+		and sys_position.name like CONCAT('%', #{searchKey},'%')
+	</if>
+  </select>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_position
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_position
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.core.pojo.Position" >
+    insert into sys_position (id, name, organid, 
+      deptid, remark)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{organid,jdbcType=BIGINT}, 
+      #{deptid,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.core.pojo.Position" >
+    insert into sys_position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="organid != null" >
+        organid,
+      </if>
+      <if test="deptid != null" >
+        deptid,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="organid != null" >
+        #{organid,jdbcType=BIGINT},
+      </if>
+      <if test="deptid != null" >
+        #{deptid,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.core.pojo.Position" >
+    update sys_position
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="organid != null" >
+        organid = #{organid,jdbcType=BIGINT},
+      </if>
+      <if test="deptid != null" >
+        deptid = #{deptid,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.core.pojo.Position" >
+    update sys_position
+    set name = #{name,jdbcType=VARCHAR},
+      organid = #{organid,jdbcType=BIGINT},
+      deptid = #{deptid,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

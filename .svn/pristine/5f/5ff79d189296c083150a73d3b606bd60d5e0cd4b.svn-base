@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemberSignMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemberSign" >
+    <id column="signid" property="signid" jdbcType="VARCHAR" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="redirect" property="redirect" jdbcType="INTEGER" />
+    <result column="signtime" property="signtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.meme.im.pojo.MemberSign" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    signid, memberid, title, cover, summary, type, redirect, signtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from meme_member_sign
+    where signid = #{signid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_member_sign
+    where signid = #{signid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemberSign" >
+    insert into meme_member_sign (signid, memberid, title, 
+      cover, summary, type, 
+      redirect, signtime, content
+      )
+    values (#{signid,jdbcType=VARCHAR}, #{memberid,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{redirect,jdbcType=INTEGER}, #{signtime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemberSign" >
+    insert into meme_member_sign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="signid != null" >
+        signid,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="redirect != null" >
+        redirect,
+      </if>
+      <if test="signtime != null" >
+        signtime,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="signid != null" >
+        #{signid,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="redirect != null" >
+        #{redirect,jdbcType=INTEGER},
+      </if>
+      <if test="signtime != null" >
+        #{signtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemberSign" >
+    update meme_member_sign
+    <set >
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="redirect != null" >
+        redirect = #{redirect,jdbcType=INTEGER},
+      </if>
+      <if test="signtime != null" >
+        signtime = #{signtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where signid = #{signid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.meme.im.pojo.MemberSign" >
+    update meme_member_sign
+    set memberid = #{memberid,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      redirect = #{redirect,jdbcType=INTEGER},
+      signtime = #{signtime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where signid = #{signid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemberSign" >
+    update meme_member_sign
+    set memberid = #{memberid,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      redirect = #{redirect,jdbcType=INTEGER},
+      signtime = #{signtime,jdbcType=TIMESTAMP}
+    where signid = #{signid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT 
+  	<include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+	FROM meme_member_sign o
+	WHERE 1=1
+	<if test="state != null">
+		AND o.state=#{state}
+	</if>
+	<if test="sort != null and sort != ''">order by ${sort} ${order}</if>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*)
+	FROM meme_member_sign o 
+	WHERE 1=1
+	<if test="state != null">
+		AND o.state=#{state}
+	</if>
+  </select>
+  
+  
+</mapper>

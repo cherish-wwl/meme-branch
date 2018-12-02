@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.barchart.wrap:barchart-wrap-jackson:1.8.6-build001">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/barchart/wrap/barchart-wrap-jackson/1.8.6-build001/barchart-wrap-jackson-1.8.6-build001.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/barchart/wrap/barchart-wrap-jackson/1.8.6-build001/barchart-wrap-jackson-1.8.6-build001-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/barchart/wrap/barchart-wrap-jackson/1.8.6-build001/barchart-wrap-jackson-1.8.6-build001-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

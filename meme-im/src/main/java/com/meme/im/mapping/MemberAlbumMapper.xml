@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemberAlbumMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemberAlbum" >
+    <id column="albumid" property="albumid" jdbcType="VARCHAR" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    albumid, memberid, content, addtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_member_album
+    where albumid = #{albumid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_member_album
+    where albumid = #{albumid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemberAlbum" >
+    insert into meme_member_album (albumid, memberid, content, 
+      addtime)
+    values (#{albumid,jdbcType=VARCHAR}, #{memberid,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemberAlbum" >
+    insert into meme_member_album
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="albumid != null" >
+        albumid,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="albumid != null" >
+        #{albumid,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemberAlbum" >
+    update meme_member_album
+    <set >
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where albumid = #{albumid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemberAlbum" >
+    update meme_member_album
+    set memberid = #{memberid,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP}
+    where albumid = #{albumid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT 
+  	<include refid="Base_Column_List" />
+	FROM meme_member_album o
+	WHERE 1=1
+	<if test="state != null">
+		AND o.state=#{state}
+	</if>
+	<if test="sort != null and sort != ''">order by ${sort} ${order}</if>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*)
+	FROM meme_member_album o 
+	WHERE 1=1
+	<if test="state != null">
+		AND o.state=#{state}
+	</if>
+  </select>
+  
+  
+</mapper>

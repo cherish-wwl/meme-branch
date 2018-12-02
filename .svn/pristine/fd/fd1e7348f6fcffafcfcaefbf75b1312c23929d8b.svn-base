@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeHomePageMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeHomePage" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="cover_href" property="cover_href" jdbcType="VARCHAR" />
+    <result column="file" property="file" jdbcType="VARCHAR" />
+    <result column="file_type" property="file_type" jdbcType="INTEGER" />
+    <result column="file_original_link" property="file_original_link" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="custom_column" property="content" jdbcType="VARCHAR" />
+    <result column="part" property="part" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="insert_date" property="insert_date" jdbcType="TIMESTAMP" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, summary, cover, cover_href, file, file_type, file_original_link, source, remarks, content, custom_column, part, type, insert_date, memberid
+  </sql>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	 select 
+     id, title, summary, homepage.cover, cover_href, file, file_type, file_original_link, source, remarks, content, custom_column, part, type, insert_date, mem.mtype, mem.nickname, mem.account
+     from meme_homepage homepage left join meme_member mem on homepage.memberid = mem.memberid WHERE 1=1
+     <if test="member_str != null and member_str != ''">
+		and  (nickname LIKE  CONCAT('%', #{member_str},'%') OR account LIKE  CONCAT('%', #{member_str},'%'))
+	</if>
+     <if test="part != null">
+		and  part = #{part}
+	</if>
+     <if test="file_type != null">
+		and  file_type = #{file_type}
+	</if>
+     <if test="source != null">
+		and  source = #{source}
+	</if>
+     <if test="type != null">
+		and  type = #{type}
+	</if>
+	<if test="startdate != null">
+		AND date_format(insert_date,'%Y-%m-%d %H:%i:%s') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(insert_date,'%Y-%m-%d %H:%i:%s') <= #{enddate}
+		]]>
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by insert_date desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+   select count(*) from meme_homepage homepage left join meme_member mem on homepage.memberid = mem.memberid WHERE 1=1
+     <if test="member_str != null and member_str != ''">
+		and  (nickname LIKE  CONCAT('%', #{member_str},'%') OR account LIKE  CONCAT('%', #{member_str},'%'))
+	</if>
+     <if test="file_type != null">
+		and  file_type = #{file_type}
+	</if>
+     <if test="source != null">
+		and  source = #{source}
+	</if>
+     <if test="type != null">
+		and  type = #{type}
+	</if>
+	<if test="startdate != null">
+		AND date_format(insert_date,'%Y-%m-%d %H:%i:%s') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(insert_date,'%Y-%m-%d %H:%i:%s') <= #{enddate}
+		]]>
+	</if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_homepage
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete meme_homepage 
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeHomePage" >
+    insert into meme_homepage (id, title, summary, cover, cover_href, file, file_type, file_original_link, source, remarks, content, custom_column, part, type, insert_date, memberid)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{cover_href,jdbcType=VARCHAR}, #{file,jdbcType=VARCHAR}, #{file_type,jdbcType=INTEGER}, #{file_original_link,jdbcType=VARCHAR}
+      , #{source,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{custom_column,jdbcType=VARCHAR}, #{part,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{insert_date,jdbcType=TIMESTAMP}, #{memberid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeHomePage" >
+    insert into meme_homepage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="cover_href != null" >
+        cover_href,
+      </if>
+      <if test="file != null" >
+        file,
+      </if>
+      <if test="file_type != null" >
+        file_type,
+      </if>
+      <if test="file_original_link != null" >
+        file_original_link,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="custom_column != null" >
+        custom_column,
+      </if>
+      <if test="part != null" >
+        part,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="insert_date != null" >
+        insert_date,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="cover_href != null" >
+        #{cover_href,jdbcType=VARCHAR},
+      </if>
+      <if test="file != null" >
+        #{file,jdbcType=VARCHAR},
+      </if>
+      <if test="file_type != null" >
+        #{file_type,jdbcType=INTEGER},
+      </if>
+      <if test="file_original_link != null" >
+        #{file_original_link,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="custom_column != null" >
+        #{custom_column,jdbcType=VARCHAR},
+      </if>
+      <if test="part != null" >
+        #{part,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="insert_date != null" >
+        #{insert_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeHomePage" >
+    update meme_homepage
+    <set >
+       <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="cover_href != null" >
+        cover_href = #{cover_href,jdbcType=VARCHAR},
+      </if>
+      <if test="file != null" >
+        file = #{file,jdbcType=VARCHAR},
+      </if>
+      <if test="file_type != null" >
+        file_type = #{file_type,jdbcType=INTEGER},
+      </if>
+      <if test="file_original_link != null" >
+        file_original_link = #{file_original_link,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        remarks= #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="custom_column != null" >
+        custom_column = #{custom_column,jdbcType=VARCHAR},
+      </if>
+      <if test="part != null" >
+        part = #{part,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="insert_date != null" >
+        insert_date = #{insert_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeHomePage" >
+    update meme_homepage
+    set title = #{title,jdbcType=VARCHAR}, summary = #{summary,jdbcType=VARCHAR}, 
+      cover = #{cover,jdbcType=VARCHAR},cover_href = #{cover_href,jdbcType=VARCHAR},file = #{file,jdbcType=VARCHAR},
+      file_type = #{file_type,jdbcType=INTEGER},file_original_link = #{file_original_link,jdbcType=VARCHAR},source = #{source,jdbcType=INTEGER},
+      remarks= #{remarks,jdbcType=VARCHAR},content = #{content,jdbcType=VARCHAR},custom_column = #{custom_column,jdbcType=VARCHAR},part = #{part,jdbcType=INTEGER},type = #{type,jdbcType=INTEGER},insert_date = #{insert_date,jdbcType=TIMESTAMP},memberid = #{memberid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

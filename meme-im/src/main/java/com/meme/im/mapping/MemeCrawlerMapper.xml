@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeCrawlerMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeCrawler" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="cover_href" property="cover_href" jdbcType="VARCHAR" />
+    <result column="file" property="file" jdbcType="VARCHAR" />
+    <result column="file_type" property="file_type" jdbcType="INTEGER" />
+    <result column="file_original_link" property="file_original_link" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="album" property="album" jdbcType="VARCHAR" />
+    <result column="custom_column" property="custom_column" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="insert_date" property="insert_date" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, summary, cover, cover_href, file, file_type, file_original_link, source, remarks, content, album, custom_column, type, insert_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_crawler
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete meme_crawler 
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeCrawler" >
+    insert into meme_crawler (id, title, summary, cover, cover_href, file, file_type, file_original_link, source, remarks, content, album, custom_column, type, insert_date)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{cover_href,jdbcType=VARCHAR}, #{file,jdbcType=VARCHAR}, #{file_type,jdbcType=INTEGER}, #{file_original_link,jdbcType=VARCHAR}
+      , #{source,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{album,jdbcType=VARCHAR}, #{custom_column,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{insert_date,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeCrawler" >
+    insert into meme_crawler
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="cover_href != null" >
+        cover_href,
+      </if>
+      <if test="file != null" >
+        file,
+      </if>
+      <if test="file_type != null" >
+        file_type,
+      </if>
+      <if test="file_original_link != null" >
+        file_original_link,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="album != null" >
+        album,
+      </if>
+      <if test="custom_column != null" >
+        custom_column,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="insert_date != null" >
+        insert_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="cover_href != null" >
+        #{cover_href,jdbcType=VARCHAR},
+      </if>
+      <if test="file != null" >
+        #{file,jdbcType=VARCHAR},
+      </if>
+      <if test="file_type != null" >
+        #{file_type,jdbcType=INTEGER},
+      </if>
+      <if test="file_original_link != null" >
+        #{file_original_link,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="album != null" >
+        #{album,jdbcType=VARCHAR},
+      </if>
+      <if test="custom_column != null" >
+        #{custom_column,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="insert_date != null" >
+        #{insert_date,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeCrawler" >
+    update meme_crawler
+    <set >
+       <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="cover_href != null" >
+        cover_href = #{cover_href,jdbcType=VARCHAR},
+      </if>
+      <if test="file != null" >
+        file = #{file,jdbcType=VARCHAR},
+      </if>
+      <if test="file_type != null" >
+        file_type = #{file_type,jdbcType=INTEGER},
+      </if>
+      <if test="file_original_link != null" >
+        file_original_link = #{file_original_link,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        remarks= #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="album != null" >
+        album = #{album,jdbcType=VARCHAR},
+      </if>
+      <if test="custom_column != null" >
+        custom_column = #{custom_column,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="insert_date != null" >
+        insert_date = #{insert_date,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeCrawler" >
+    update meme_crawler
+    set title = #{title,jdbcType=VARCHAR}, summary = #{summary,jdbcType=VARCHAR}, 
+      cover = #{cover,jdbcType=VARCHAR},cover_href = #{cover_href,jdbcType=VARCHAR},file = #{file,jdbcType=VARCHAR},
+      file_type = #{file_type,jdbcType=INTEGER},file_original_link = #{file_original_link,jdbcType=VARCHAR},source = #{source,jdbcType=INTEGER},
+      remarks= #{remarks,jdbcType=VARCHAR},content = #{content,jdbcType=VARCHAR},album = #{album,jdbcType=VARCHAR},custom_column = #{custom_column,jdbcType=VARCHAR},type = #{type,jdbcType=INTEGER},insert_date = #{insert_date,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

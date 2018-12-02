@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeWbOrderSettlementMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeWbOrderSettlement" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="wb_memberid" property="wb_memberid" jdbcType="BIGINT" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="settlement_time" property="settlement_time" jdbcType="TIMESTAMP" />
+    <result column="settlement_state" property="settlement_state" jdbcType="INTEGER" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="add_time" property="add_time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, wb_memberid, orderid, settlement_time, settlement_state, memberid, add_time
+  </sql>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	select wb_mem.account,wb_mem.nickname,wb_mem.memberid,if(count(if(settlement_state = 1,settlement_state,null))>0,'是','否') un_settlement,
+  	min(if(settlement_state = 1,date_add(add_time, interval 1 day),null)) settlement_deadline,sum(wb_order.amount) amount,
+  	max(if(settlement_state = 2,settlement_time,null)) last_settlement_time,if(count(if(settlement_state = 3,settlement_state,null))>0,'是','否') un_rg,
+  	min(if(settlement_state = 3,add_time,null)) r_apply_time,max(if(settlement_state = 4,settlement_time,null)) r_complete_time from 
+  	(select * from meme_wb_order_settlement where 1=1 
+  	<if test="memberid != null and memberid != ''">
+		and  memberid = #{memberid}
+	</if>) sett left join meme_member wb_mem on sett.wb_memberid = wb_mem.memberid 
+	left join meme_wb_order wb_order on sett.orderid = wb_order.orderid  WHERE 1=1
+	<if test="member_str != null and member_str != ''">
+		and  nickname LIKE  CONCAT('%', #{member_str},'%')
+	</if>
+	group by wb_mem.account,wb_mem.nickname,wb_mem.memberid
+	<if test="sort != null and sort != ''">order by ${sort} ${order}</if>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	select count(DISTINCT sett.wb_memberid) from 
+  	(select * from meme_wb_order_settlement where 1=1 
+  	<if test="memberid != null and memberid != ''">
+		and  memberid = #{memberid}
+	</if>) sett left join meme_member wb_mem on sett.wb_memberid = wb_mem.memberid 
+	WHERE 1=1
+	<if test="member_str != null and member_str != ''">
+		and  nickname LIKE  CONCAT('%', #{member_str},'%')
+	</if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_wb_order_settlement
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="doWbOrderQuery" resultType="java.util.HashMap">
+    select sett.id,sett.orderid,wb_order.body,wb_order.amount,mem.account,mem.nickname,if(settlement_state = 1,date_add(add_time, interval 1 day),add_time) add_time,
+    settlement_time
+    from meme_wb_order_settlement sett left join meme_member mem on sett.memberid = mem.memberid 
+	left join meme_wb_order wb_order on sett.orderid = wb_order.orderid 
+    where wb_memberid = #{memberid,jdbcType=BIGINT} AND settlement_state = #{state,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_wb_order_settlement
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeWbOrderSettlement" >
+    insert into meme_wb_order_settlement (id, wb_memberid, orderid, settlement_time, settlement_state, memberid, add_time)
+    values (#{id,jdbcType=VARCHAR}, #{wb_memberid,jdbcType=BIGINT}, #{orderid,jdbcType=VARCHAR}, 
+      #{settlement_time,jdbcType=TIMESTAMP}, #{settlement_state,jdbcType=INTEGER}, #{memberid,jdbcType=BIGINT}, #{add_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeWbOrderSettlement" >
+    insert into meme_wb_order_settlement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wb_memberid != null" >
+        wb_memberid,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="settlement_time != null" >
+        settlement_time,
+      </if>
+      <if test="settlement_state != null" >
+        settlement_state,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="add_time != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="wb_memberid != null" >
+        #{wb_memberid,jdbcType=BIGINT},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="settlement_time != null" >
+        #{settlement_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settlement_state != null" >
+        #{settlement_state,jdbcType=INTEGER},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="add_time != null" >
+        #{add_time,jdbcType=TIMESTAMP},
+      </if>
+     </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeWbOrderSettlement" >
+    update meme_wb_order_settlement
+    <set >
+      <if test="wb_memberid != null" >
+        wb_memberid = #{wb_memberid,jdbcType=BIGINT},
+      </if>
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="settlement_time != null" >
+        settlement_time = #{settlement_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settlement_state != null" >
+        settlement_state = #{settlement_state,jdbcType=INTEGER},
+      </if>
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="add_time != null" >
+        add_time = #{add_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeWbOrderSettlement" >
+    update meme_wb_order_settlement
+      wb_memberid = #{wb_memberid,jdbcType=BIGINT},
+      orderid = #{orderid,jdbcType=VARCHAR},
+      settlement_time = #{settlement_time,jdbcType=TIMESTAMP},
+      settlement_state = #{settlement_state,jdbcType=INTEGER},
+      memberid = #{settlement_state,jdbcType=BIGINT},
+      add_time = #{settlement_state,jdbcType=TIMESTAMP}
+    where productid = #{productid,jdbcType=VARCHAR}
+  </update>
+</mapper>

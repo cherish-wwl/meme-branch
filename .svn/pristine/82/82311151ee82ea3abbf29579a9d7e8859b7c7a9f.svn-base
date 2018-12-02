@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.core.dao.DictItemMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.core.pojo.DictItem" >
+    <id column="dictitemid" property="dictitemid" jdbcType="BIGINT" />
+    <result column="dictitemname" property="dictitemname" jdbcType="VARCHAR" />
+    <result column="dictitemcode" property="dictitemcode" jdbcType="VARCHAR" />
+    <result column="dictgroupid" property="dictgroupid" jdbcType="BIGINT" />
+    <result column="isdefault" property="isdefault" jdbcType="INTEGER" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ViewResultMap" type="com.meme.core.pojo.DictItemView" >
+    <result column="dictitemid" property="dictitemid" jdbcType="BIGINT" />
+    <result column="dictitemname" property="dictitemname" jdbcType="VARCHAR" />
+    <result column="dictitemcode" property="dictitemcode" jdbcType="VARCHAR" />
+    <result column="dictgroupid" property="dictgroupid" jdbcType="BIGINT" />
+    <result column="isdefault" property="isdefault" jdbcType="INTEGER" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    
+    <result column="dictgroupcode" property="dictgroupcode" jdbcType="VARCHAR" />
+    <result column="dictgroupname" property="dictgroupname" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dictitemid, dictitemname, dictitemcode, dictgroupid, isdefault, sortno, remark
+  </sql>
+  <sql id="View_Column_List" >
+    sys_dict_item.dictitemid, sys_dict_item.dictitemname, sys_dict_item.dictitemcode, 
+    sys_dict_item.dictgroupid, sys_dict_item.isdefault, sys_dict_item.sortno, 
+    sys_dict_item.remark,sys_dict_group.dictgroupcode,sys_dict_group.dictgroupname,sys_dict_group.type
+  </sql>
+  <select id="selectAllDict" resultMap="ViewResultMap" parameterType="java.lang.Long">
+  	select 
+    <include refid="View_Column_List" />
+    from sys_dict_group,sys_dict_item where sys_dict_group.dictgroupid = sys_dict_item.dictgroupid
+    <if test="dictgroupid != null and dictgroupid != 0">
+    	and sys_dict_item.dictgroupid=#{dictgroupid}
+    </if>
+    order by dictgroupcode,sortno asc
+  </select>
+  <select id="selectByDictitemids" resultMap="ViewResultMap">
+  	select 
+    <include refid="View_Column_List" />
+    from sys_dict_group,sys_dict_item where sys_dict_group.dictgroupid = sys_dict_item.dictgroupid
+    and sys_dict_item.dictitemid in
+  	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+   		#{item}
+   	</foreach>
+  </select>
+  <select id="selectByDictgroupcode" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	SELECT item.* FROM sys_dict_item item 
+  	INNER JOIN sys_dict_group grup ON item.dictgroupid=grup.dictgroupid
+	WHERE grup.dictgroupcode=#{dictgroupcode}
+	order by item.sortno asc
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dict_item
+    where dictitemid = #{dictitemid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_dict_item
+    where dictitemid = #{dictitemid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.core.pojo.DictItem" >
+    insert into sys_dict_item (dictitemid, dictitemname, dictitemcode, 
+      dictgroupid, isdefault, sortno, 
+      remark)
+    values (#{dictitemid,jdbcType=BIGINT}, #{dictitemname,jdbcType=VARCHAR}, #{dictitemcode,jdbcType=VARCHAR}, 
+      #{dictgroupid,jdbcType=BIGINT}, #{isdefault,jdbcType=INTEGER}, #{sortno,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.core.pojo.DictItem">
+    insert into sys_dict_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dictitemid != null" >
+        dictitemid,
+      </if>
+      <if test="dictitemname != null" >
+        dictitemname,
+      </if>
+      <if test="dictitemcode != null" >
+        dictitemcode,
+      </if>
+      <if test="dictgroupid != null" >
+        dictgroupid,
+      </if>
+      <if test="isdefault != null" >
+        isdefault,
+      </if>
+      <if test="sortno != null" >
+        sortno,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dictitemid != null" >
+        #{dictitemid,jdbcType=BIGINT},
+      </if>
+      <if test="dictitemname != null" >
+        #{dictitemname,jdbcType=VARCHAR},
+      </if>
+      <if test="dictitemcode != null" >
+        #{dictitemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictgroupid != null" >
+        #{dictgroupid,jdbcType=BIGINT},
+      </if>
+      <if test="isdefault != null" >
+        #{isdefault,jdbcType=INTEGER},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.core.pojo.DictItem" >
+    update sys_dict_item
+    <set >
+      <if test="dictitemname != null" >
+        dictitemname = #{dictitemname,jdbcType=VARCHAR},
+      </if>
+      <if test="dictitemcode != null" >
+        dictitemcode = #{dictitemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictgroupid != null" >
+        dictgroupid = #{dictgroupid,jdbcType=BIGINT},
+      </if>
+      <if test="isdefault != null" >
+        isdefault = #{isdefault,jdbcType=INTEGER},
+      </if>
+      <if test="sortno != null" >
+        sortno = #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dictitemid = #{dictitemid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.core.pojo.DictItem" >
+    update sys_dict_item
+    set dictitemname = #{dictitemname,jdbcType=VARCHAR},
+      dictitemcode = #{dictitemcode,jdbcType=VARCHAR},
+      dictgroupid = #{dictgroupid,jdbcType=BIGINT},
+      isdefault = #{isdefault,jdbcType=INTEGER},
+      sortno = #{sortno,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where dictitemid = #{dictitemid,jdbcType=BIGINT}
+  </update>
+</mapper>

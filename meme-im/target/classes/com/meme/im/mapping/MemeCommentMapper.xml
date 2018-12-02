@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeComment" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="homepageid" property="homepageid" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, memberid, content, remarks, addtime
+  </sql>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	 select comm.id,meme1.mtype mtype1,meme1.nickname nickname1,meme1.account account1,
+  	 meme2.mtype mtype2,meme2.nickname nickname2,meme2.account account2,title,home.cover, file, file_type,home.content content1,part,type,comm.content content2,comm.remarks,addtime
+  	 from meme_comment comm left join meme_homepage home on comm.homepageid = home.id
+  	 left join meme_member meme1 on home.memberid = meme1.memberid
+  	 left join meme_member meme2 on comm.memberid = meme2.memberid
+      WHERE 1=1
+     <if test="member_str1 != null and member_str1 != ''">
+		and  (meme1.nickname LIKE  CONCAT('%', #{member_str1},'%') OR meme1.account LIKE  CONCAT('%', #{member_str1},'%'))
+	</if>
+     <if test="member_str2 != null and member_str2 != ''">
+		and  (meme2.nickname LIKE  CONCAT('%', #{member_str2},'%') OR meme2.account LIKE  CONCAT('%', #{member_str2},'%'))
+	</if>
+     <if test="file_type != null">
+		and  file_type = #{file_type}
+	</if>
+	<if test="startdate != null">
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') >= #{addtime}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') <= #{addtime}
+		]]>
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by addtime desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+   select count(*)
+  	 from meme_comment comm left join meme_homepage home on comm.homepageid = home.id
+  	 left join meme_member meme1 on home.memberid = meme1.memberid
+  	 left join meme_member meme2 on comm.memberid = meme2.memberid
+      WHERE 1=1
+     <if test="member_str1 != null and member_str1 != ''">
+		and  (meme1.nickname LIKE  CONCAT('%', #{member_str1},'%') OR meme1.account LIKE  CONCAT('%', #{member_str1},'%'))
+	</if>
+     <if test="member_str2 != null and member_str2 != ''">
+		and  (meme2.nickname LIKE  CONCAT('%', #{member_str2},'%') OR meme2.account LIKE  CONCAT('%', #{member_str2},'%'))
+	</if>
+     <if test="file_type != null">
+		and  file_type = #{file_type}
+	</if>
+	<if test="startdate != null">
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') >= #{addtime}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') <= #{addtime}
+		]]>
+	</if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_comment
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete meme_comment 
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeComment" >
+    insert into meme_comment (id, memberid, content, remarks, addtime, homepageid)
+    values (#{id,jdbcType=VARCHAR}, #{memberid,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{homepageid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeComment" >
+    insert into meme_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="homepageid != null" >
+        homepageid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="homepageid != null" >
+        #{homepageid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeComment" >
+    update meme_comment
+    <set >
+       <if test="id != null" >
+         id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+         memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+         content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+         remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+         addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="homepageid != null" >
+         homepageid = #{homepageid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeComment" >
+    update meme_comment set
+         id = #{id,jdbcType=VARCHAR},
+         memberid = #{memberid,jdbcType=BIGINT},
+         content = #{content,jdbcType=VARCHAR},
+         remarks = #{remarks,jdbcType=VARCHAR},
+         addtime = #{addtime,jdbcType=TIMESTAMP},
+         homepageid = #{homepageid,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.core.dao.OperationMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.core.pojo.Operation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="viewurl" property="viewurl" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="opcode" property="opcode" jdbcType="VARCHAR" />
+    <result column="jscontent" property="jscontent" jdbcType="VARCHAR" />
+    <result column="menuid" property="menuid" jdbcType="BIGINT" />
+    <result column="platformid" property="platformid" jdbcType="BIGINT" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, name, viewurl, url, opcode, jscontent, menuid, platformid, icon, sortno
+  </sql>
+  <select id="selectOrganOperations" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from sys_operation where 1=1
+  	<choose>
+  		<when test="menuids != null and menuids.size > 0">
+  			and id in(
+  			SELECT operationid FROM sys_organ_operation WHERE organid=#{organid} and menuid in
+  			<foreach item="item" index="index" collection="menuids" open="(" separator="," close=")">
+    		#{item}
+    		</foreach>
+    		)
+  		</when>
+  		<otherwise>
+  			and id in(SELECT operationid FROM sys_organ_operation WHERE menuid in (SELECT menuid FROM sys_organ_menu WHERE organid=#{organid}))
+  		</otherwise>
+  	</choose>
+  	<if test="platformids != null and platformids.size > 0">
+ 		and platformid in
+ 		<foreach item="item" index="index" collection="platformids" open="(" separator="," close=")">
+   		#{item}
+   		</foreach>
+  	</if>
+  	ORDER BY platformid,menuid,sortno
+  </select>
+  <select id="selectRoleOperations" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from sys_operation where 1=1
+  	<choose>
+  		<when test="menuids != null and menuids.size > 0">
+  			and id in(SELECT operationid FROM sys_role_operation WHERE menuid in
+  			<foreach item="item" index="index" collection="menuids" open="(" separator="," close=")">
+    			#{item}
+    		</foreach>
+    		and roleid in
+  			<foreach item="item" index="index" collection="roleids" open="(" separator="," close=")">
+    			#{item}
+    		</foreach>
+    		)
+  		</when>
+  		<otherwise>
+  			and id in(SELECT operationid FROM sys_role_operation WHERE menuid in (SELECT menuid FROM sys_role_menu 
+  			WHERE roleid in
+  			<foreach item="item" index="index" collection="roleids" open="(" separator="," close=")">
+    		#{item}
+    		</foreach>
+  			))
+  		</otherwise>
+  	</choose>
+  	<if test="platformids != null and platformids.size > 0">
+ 		and platformid in
+ 		<foreach item="item" index="index" collection="platformids" open="(" separator="," close=")">
+   		#{item}
+   		</foreach>
+  	</if>
+  	ORDER BY platformid,menuid,sortno
+  </select>
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_operation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_operation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.core.pojo.Operation" >
+    insert into sys_operation (id, pid, name, 
+      viewurl, url, opcode, 
+      jscontent, menuid, platformid, 
+      icon, sortno)
+    values (#{id,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{viewurl,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{opcode,jdbcType=VARCHAR}, 
+      #{jscontent,jdbcType=VARCHAR}, #{menuid,jdbcType=BIGINT}, #{platformid,jdbcType=BIGINT}, 
+      #{icon,jdbcType=VARCHAR}, #{sortno,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.core.pojo.Operation" >
+    insert into sys_operation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="viewurl != null" >
+        viewurl,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="opcode != null" >
+        opcode,
+      </if>
+      <if test="jscontent != null" >
+        jscontent,
+      </if>
+      <if test="menuid != null" >
+        menuid,
+      </if>
+      <if test="platformid != null" >
+        platformid,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="sortno != null" >
+        sortno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="viewurl != null" >
+        #{viewurl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="opcode != null" >
+        #{opcode,jdbcType=VARCHAR},
+      </if>
+      <if test="jscontent != null" >
+        #{jscontent,jdbcType=VARCHAR},
+      </if>
+      <if test="menuid != null" >
+        #{menuid,jdbcType=BIGINT},
+      </if>
+      <if test="platformid != null" >
+        #{platformid,jdbcType=BIGINT},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.core.pojo.Operation" >
+    update sys_operation
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="viewurl != null" >
+        viewurl = #{viewurl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="opcode != null" >
+        opcode = #{opcode,jdbcType=VARCHAR},
+      </if>
+      <if test="jscontent != null" >
+        jscontent = #{jscontent,jdbcType=VARCHAR},
+      </if>
+      <if test="menuid != null" >
+        menuid = #{menuid,jdbcType=BIGINT},
+      </if>
+      <if test="platformid != null" >
+        platformid = #{platformid,jdbcType=BIGINT},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        sortno = #{sortno,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.core.pojo.Operation" >
+    update sys_operation
+    set pid = #{pid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      viewurl = #{viewurl,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      opcode = #{opcode,jdbcType=VARCHAR},
+      jscontent = #{jscontent,jdbcType=VARCHAR},
+      menuid = #{menuid,jdbcType=BIGINT},
+      platformid = #{platformid,jdbcType=BIGINT},
+      icon = #{icon,jdbcType=VARCHAR},
+      sortno = #{sortno,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.Member" >
+    <id column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="mpassword" property="mpassword" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="domain" property="domain" jdbcType="VARCHAR" />
+    <result column="sectionname" property="sectionname" jdbcType="VARCHAR" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="qrcode" property="qrcode" jdbcType="VARCHAR" />
+    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="music" property="music" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="mtype" property="mtype" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="hasdomain" property="hasdomain" jdbcType="INTEGER" />
+    <result column="registertime" property="registertime" jdbcType="TIMESTAMP" />
+    <result column="lastlogin" property="lastlogin" jdbcType="TIMESTAMP" />
+    <result column="lastip" property="lastip" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="login" property="login" jdbcType="TIMESTAMP" />
+    <result column="quickRegist" property="quickRegist" jdbcType="INTEGER" />
+     <result column="memberCoding" property="memberCoding" jdbcType="VARCHAR" />
+     <result column="balance" property="balance" jdbcType="DOUBLE" />
+     <result column="deposit" property="deposit" jdbcType="DOUBLE" />
+     <result column="payaccount" property="payaccount" jdbcType="VARCHAR" />
+     <result column="paynickname" property="paynickname" jdbcType="VARCHAR" />
+     <result column="unwithdrawals" property="unwithdrawals" jdbcType="VARCHAR" />
+     <result column="age" property="age" jdbcType="INTEGER" />
+     <result column="address" property="address" jdbcType="VARCHAR" />
+     <result column="constellation" property="constellation" jdbcType="VARCHAR" />
+     <result column="bloodType" property="bloodType" jdbcType="VARCHAR" />
+     <result column="emotionalState" property="emotionalState" jdbcType="VARCHAR" />
+     <result column="hobby" property="hobby" jdbcType="VARCHAR" />
+     <result column="school" property="school" jdbcType="VARCHAR" />
+     <result column="job" property="job" jdbcType="VARCHAR" />
+     <result column="income" property="income" jdbcType="VARCHAR" />
+     <result column="height" property="height" jdbcType="VARCHAR" />
+     <result column="weight" property="weight" jdbcType="VARCHAR" />
+     <result column="qqNumber" property="qqNumber" jdbcType="VARCHAR" />
+     <result column="wechatNumber" property="wechatNumber" jdbcType="VARCHAR" />
+     <result column="isValidate" property="isValidate" jdbcType="VARCHAR" />
+     <result column="consignee" property="consignee" jdbcType="VARCHAR" />
+     <result column="receiving_telephone" property="receiving_telephone" jdbcType="VARCHAR" />
+     <result column="receiving_address" property="receiving_address" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    memberid, account, mpassword, salt, nickname, sex, domain, sectionname, avatar, qrcode, 
+    unionid, openid, email, cellphone, sign, music, cover, country, province, city, mtype, 
+    state, hasdomain, registertime, lastlogin, lastip, login, qq, quickRegist, memberCoding,
+    balance, deposit, payaccount, paynickname, unwithdrawals, age, address, constellation, bloodType,
+    emotionalState, hobby, school, job, income, height, weight, qqNumber, wechatNumber, isValidate,
+    consignee, receiving_telephone, receiving_address
+  </sql>
+  <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_member
+    where openid = #{openid}
+  </select>
+  <select id="selectByNums" resultType="java.lang.Long">
+    select 
+    memberid
+    from meme_member
+    <where>  
+            <foreach  collection="array" item="id" separator="or">   
+               memberid like '%${id}'  
+            </foreach>  
+        </where>  
+  </select>
+  <select id="check" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from meme_member
+    where 1=1
+    <if test="memberid != null">
+    	and memberid=#{memberid}
+    </if>
+    <if test="account != null and account != ''">
+    	and account=#{account}
+    </if>
+  </select>
+  
+  
+    <select id="selectByAccount" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+  	 <include refid="Base_Column_List" />
+    from meme_member
+    where 1=1
+    <if test="account != null and account != ''">
+    	and account=#{account}
+    </if>
+  </select>
+  
+  
+  <select id="getAllServiceMembers" resultType="java.util.HashMap">
+  	select 
+    memberid, memberid as id,'offline' as status, nickname,nickname as username, sex, domain, sectionname, avatar, qrcode, email, cellphone, 
+    sign, music, cover, country, province, city, mtype, state, hasdomain, registertime, lastlogin, lastip, login, 1 as groupid, "网站客服" as groupname, quickRegist, memberCoding,
+     balance, deposit, payaccount, paynickname, unwithdrawals
+    from meme_member
+    where state=1 and mtype=1 order by registertime desc
+  </select>
+  <select id="getAllTmpMembers" resultType="java.util.HashMap">
+  	select 
+    memberid, nickname, sex, domain, sectionname, avatar, qrcode, 
+    email, cellphone, sign, music, cover, country, province, city, mtype, state, hasdomain, 
+    registertime, lastlogin, lastip, login, quickRegist, memberCoding, balance, deposit, payaccount, paynickname, unwithdrawals
+    from meme_member
+    where state=0 and mtype=-1 order by registertime desc
+  </select>
+  
+  <select id="getMemberIdByPathname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	select 
+    memberid
+    from meme_member
+    where domain like concat('%',#{pathname})
+  </select>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_member
+    where memberid = #{memberid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from meme_member
+    where memberid = #{memberid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.Member" >
+    insert into meme_member (memberid, account, mpassword, 
+      salt, nickname, sex, 
+      domain, sectionname, avatar, 
+      qrcode, unionid, openid, 
+      email, cellphone, sign, 
+      music, cover, country, 
+      province, city, mtype, 
+      state, hasdomain, registertime, 
+      lastlogin, lastip, login, qq, quickRegist, memberCoding, balance, deposit, payaccount, paynickname,unwithdrawals, age, address, constellation, bloodType,
+      emotionalState, hobby, school, job, income, height, weight, qqNumber, wechatNumber,isValidate,consignee, receiving_telephone, receiving_address
+      )
+    values (#{memberid,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{mpassword,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{domain,jdbcType=VARCHAR}, #{sectionname,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
+      #{qrcode,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{cellphone,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, 
+      #{music,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{mtype,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{hasdomain,jdbcType=INTEGER}, #{registertime,jdbcType=TIMESTAMP}, 
+      #{lastlogin,jdbcType=TIMESTAMP}, #{lastip,jdbcType=VARCHAR}, #{login,jdbcType=TIMESTAMP}, #{qq,jdbcType=VARCHAR}, #{quickRegist,jdbcType=INTEGER}, #{memberCoding,jdbcType=VARCHAR},
+       #{balance,jdbcType=DOUBLE}, #{deposit,jdbcType=DOUBLE}, #{payaccount,jdbcType=VARCHAR}, #{paynickname,jdbcType=VARCHAR}, #{unwithdrawals,jdbcType=VARCHAR},
+       #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{constellation,jdbcType=VARCHAR}, #{bloodType,jdbcType=VARCHAR}, #{emotionalState,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}
+       , #{school,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{income,jdbcType=VARCHAR}, #{height,jdbcType=VARCHAR}
+       , #{weight,jdbcType=VARCHAR}, #{qqNumber,jdbcType=VARCHAR}, #{wechatNumber,jdbcType=VARCHAR}, #{isValidate,jdbcType=VARCHAR}
+       , #{consignee,jdbcType=VARCHAR}, #{receiving_telephone,jdbcType=VARCHAR}, #{receiving_address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.Member" >
+    insert into meme_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="mpassword != null" >
+        mpassword,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="domain != null" >
+        domain,
+      </if>
+      <if test="sectionname != null" >
+        sectionname,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="qrcode != null" >
+        qrcode,
+      </if>
+      <if test="unionid != null" >
+        unionid,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="cellphone != null" >
+        cellphone,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="music != null" >
+        music,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="mtype != null" >
+        mtype,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="hasdomain != null" >
+        hasdomain,
+      </if>
+      <if test="registertime != null" >
+        registertime,
+      </if>
+      <if test="lastlogin != null" >
+        lastlogin,
+      </if>
+      <if test="lastip != null" >
+        lastip,
+      </if>
+      <if test="login != null" >
+        login,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="quickRegist != null" >
+        quickRegist,
+      </if>
+      <if test="memberCoding != null" >
+        memberCoding,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="deposit != null" >
+        deposit,
+      </if>
+      <if test="payaccount != null" >
+        payaccount,
+      </if>
+      <if test="paynickname != null" >
+        paynickname,
+      </if>
+      <if test="unwithdrawals != null" >
+        unwithdrawals,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="constellation != null" >
+        constellation,
+      </if>
+      <if test="bloodType != null" >
+        bloodType,
+      </if>
+      <if test="emotionalState != null" >
+        emotionalState,
+      </if>
+      <if test="hobby != null" >
+        hobby,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="job != null" >
+        job,
+      </if>
+      <if test="income != null" >
+        income,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="qqNumber != null" >
+        qqNumber,
+      </if>
+      <if test="wechatNumber != null" >
+        wechatNumber,
+      </if>
+      <if test="isValidate != null" >
+        isValidate,
+      </if>
+      <if test="consignee != null" >
+        consignee,
+      </if>
+      <if test="receiving_telephone != null" >
+        receiving_telephone,
+      </if>
+      <if test="receiving_address != null" >
+        receiving_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="mpassword != null" >
+        #{mpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="domain != null" >
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionname != null" >
+        #{sectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcode != null" >
+        #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="music != null" >
+        #{music,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="mtype != null" >
+        #{mtype,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="hasdomain != null" >
+        #{hasdomain,jdbcType=INTEGER},
+      </if>
+      <if test="registertime != null" >
+        #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogin != null" >
+        #{lastlogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastip != null" >
+        #{lastip,jdbcType=VARCHAR},
+      </if>
+      <if test="login != null" >
+        #{login,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="quickRegist != null" >
+        #{quickRegist,jdbcType=INTEGER},
+      </if>
+      <if test="memberCoding != null" >
+        #{memberCoding,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="deposit != null" >
+        #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="payaccount != null" >
+        #{payaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="paynickname != null" >
+        #{paynickname,jdbcType=VARCHAR},
+      </if>
+      <if test="unwithdrawals != null" >
+        #{unwithdrawals,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="constellation != null" >
+        #{constellation,jdbcType=VARCHAR},
+      </if>
+      <if test="bloodType != null" >
+        #{bloodType,jdbcType=VARCHAR},
+      </if>
+      <if test="emotionalState != null" >
+        #{emotionalState,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null" >
+        #{income,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNumber != null" >
+        #{qqNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatNumber != null" >
+        #{wechatNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidate != null" >
+        #{isValidate,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null" >
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="receiving_telephone != null" >
+        #{receiving_telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiving_address != null" >
+        #{receiving_address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.Member" >
+    update meme_member
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="mpassword != null" >
+        mpassword = #{mpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="domain != null" >
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionname != null" >
+        sectionname = #{sectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcode != null" >
+        qrcode = #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="cellphone != null" >
+        cellphone = #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="music != null" >
+        music = #{music,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="mtype != null" >
+        mtype = #{mtype,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="hasdomain != null" >
+        hasdomain = #{hasdomain,jdbcType=INTEGER},
+      </if>
+      <if test="registertime != null" >
+        registertime = #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogin != null" >
+        lastlogin = #{lastlogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastip != null" >
+        lastip = #{lastip,jdbcType=VARCHAR},
+      </if>
+      <if test="login != null" >
+        login = #{login,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="quickRegist != null" >
+        quickRegist = #{quickRegist,jdbcType=INTEGER},
+      </if>
+      <if test="memberCoding != null" >
+        memberCoding = #{memberCoding,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="deposit != null" >
+        deposit = #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="payaccount != null" >
+        payaccount = #{payaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="paynickname != null" >
+        paynickname = #{paynickname,jdbcType=VARCHAR},
+      </if>
+      <if test="unwithdrawals != null" >
+        unwithdrawals = #{unwithdrawals,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="constellation != null" >
+        constellation = #{constellation,jdbcType=VARCHAR},
+      </if>
+      <if test="bloodType != null" >
+        bloodType = #{bloodType,jdbcType=VARCHAR},
+      </if>
+      <if test="emotionalState != null" >
+        emotionalState = #{emotionalState,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null" >
+        income = #{income,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNumber != null" >
+        qqNumber = #{qqNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatNumber != null" >
+        wechatNumber = #{wechatNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidate != null" >
+        isValidate = #{isValidate,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null" >
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="receiving_telephone != null" >
+        receiving_telephone = #{receiving_telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiving_address != null" >
+        receiving_address = #{receiving_address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where memberid = #{memberid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.Member" >
+    update meme_member
+    set account = #{account,jdbcType=VARCHAR},
+      mpassword = #{mpassword,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      domain = #{domain,jdbcType=VARCHAR},
+      sectionname = #{sectionname,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      qrcode = #{qrcode,jdbcType=VARCHAR},
+      unionid = #{unionid,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      cellphone = #{cellphone,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      music = #{music,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      mtype = #{mtype,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      hasdomain = #{hasdomain,jdbcType=INTEGER},
+      registertime = #{registertime,jdbcType=TIMESTAMP},
+      lastlogin = #{lastlogin,jdbcType=TIMESTAMP},
+      lastip = #{lastip,jdbcType=VARCHAR},
+      login = #{login,jdbcType=TIMESTAMP},
+      qq = #{qq,jdbcType=VARCHAR},
+      quickRegist = #{quickRegist,jdbcType=INTEGER},
+      memberCoding = #{memberCoding,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DOUBLE},
+      deposit = #{deposit,jdbcType=DOUBLE},
+      payaccount = #{payaccount,jdbcType=INTEGER},
+      paynickname = #{paynickname,jdbcType=VARCHAR},
+      unwithdrawals = #{unwithdrawals,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      constellation = #{constellation,jdbcType=VARCHAR},
+      bloodType = #{bloodType,jdbcType=VARCHAR},
+      emotionalState = #{emotionalState,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      income = #{income,jdbcType=VARCHAR},
+      height = #{height,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      qqNumber = #{qqNumber,jdbcType=VARCHAR},
+      wechatNumber = #{wechatNumber,jdbcType=VARCHAR},
+      isValidate = #{isValidate,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      receiving_telephone = #{receiving_telephone,jdbcType=VARCHAR},
+      receiving_address = #{receiving_address,jdbcType=VARCHAR}
+    where memberid = #{memberid,jdbcType=BIGINT}
+  </update>
+</mapper>

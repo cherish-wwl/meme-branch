@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeContentVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeContentVote" >
+    <id column="voteid" property="voteid" jdbcType="BIGINT" />
+    <result column="contentid" property="contentid" jdbcType="BIGINT" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="votetime" property="votetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    voteid, contentid, memberid, ip, state, votetime
+  </sql>
+  <select id="checkVoted" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from meme_content_vote
+  	where DATE_FORMAT(votetime,'%Y-%m-%d')=CURDATE()
+  	and contentid=#{contentid}
+  	<if test="memberid != null and memberid !=0">
+  	 and memberid=#{memberid}
+  	</if>
+  	<if test="ip != null and ip != ''">
+	 and ip=#{ip}
+  	</if>
+  </select>
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_content_vote
+    where voteid = #{voteid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from meme_content_vote
+    where voteid = #{voteid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeContentVote" >
+    insert into meme_content_vote (voteid, contentid, memberid, 
+      ip, state, votetime
+      )
+    values (#{voteid,jdbcType=BIGINT}, #{contentid,jdbcType=BIGINT}, #{memberid,jdbcType=BIGINT}, 
+      #{ip,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{votetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeContentVote" >
+    insert into meme_content_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="voteid != null" >
+        voteid,
+      </if>
+      <if test="contentid != null" >
+        contentid,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="votetime != null" >
+        votetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="voteid != null" >
+        #{voteid,jdbcType=BIGINT},
+      </if>
+      <if test="contentid != null" >
+        #{contentid,jdbcType=BIGINT},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="votetime != null" >
+        #{votetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeContentVote" >
+    update meme_content_vote
+    <set >
+      <if test="contentid != null" >
+        contentid = #{contentid,jdbcType=BIGINT},
+      </if>
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="votetime != null" >
+        votetime = #{votetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where voteid = #{voteid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeContentVote" >
+    update meme_content_vote
+    set contentid = #{contentid,jdbcType=BIGINT},
+      memberid = #{memberid,jdbcType=BIGINT},
+      ip = #{ip,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      votetime = #{votetime,jdbcType=TIMESTAMP}
+    where voteid = #{voteid,jdbcType=BIGINT}
+  </update>
+</mapper>

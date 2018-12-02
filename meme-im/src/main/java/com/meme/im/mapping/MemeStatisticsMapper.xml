@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeStatisticsMapper" >
+  <select id="selectByPaginationView1" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	 select home.part,home.type,sum(comm_count) comm_count,sum(reward_count) reward_count,sum(li_count) li_count,sum(browse_count) browse_count from meme_homepage home 
+  	 left join (select count(*) comm_count,homepageid from meme_comment where 1=1 <if test="startdate != null">
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') >= #{addtime}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') <= #{addtime}
+		]]>
+	</if> group by homepageid) comm on home.id = comm.homepageid
+  	 left join (select count(*) reward_count,homepageid from meme_reward where 1=1 <if test="startdate != null">
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') >= #{addtime}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') <= #{addtime}
+		]]>
+	</if> group by homepageid) reward on home.id = reward.homepageid
+  	 left join (select count(*) li_count,homepageid from meme_like where 1=1 <if test="startdate != null">
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') >= #{addtime}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') <= #{addtime}
+		]]>
+	</if> group by homepageid) li on li.homepageid = home.id
+	left join (select count(*) browse_count,homepageid from meme_browse where 1=1 <if test="startdate != null">
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') >= #{addtime}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') <= #{addtime}
+		]]>
+	</if> group by homepageid) browse on browse.homepageid = home.id
+	group by home.part,home.type
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by browse_count desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView1" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+   		select count(*) from (select part,`type` from meme_homepage group by part,`type`) tab
+  </select>
+  <select id="selectByPaginationView2" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	 select home.id,meme.mtype,meme.nickname ,meme.account ,title,home.cover, file, file_type,home.content,part,type,home.remarks,home.insert_date,
+  	 comm_count,reward_count,li_count,browse_count from meme_homepage home 
+  	 join meme_member meme on home.memberid = meme.memberid
+  	 join (select count(*) comm_count,homepageid from meme_comment where 1=1 <if test="startdate != null">
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') >= #{addtime}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') <= #{addtime}
+		]]>
+	</if> group by homepageid) comm on home.id = comm.homepageid
+  	 left join (select count(*) reward_count,homepageid from meme_reward where 1=1 <if test="startdate != null">
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') >= #{addtime}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') <= #{addtime}
+		]]>
+	</if> group by homepageid) reward on home.id = reward.homepageid
+  	 left join (select count(*) li_count,homepageid from meme_like where 1=1 <if test="startdate != null">
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') >= #{addtime}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') <= #{addtime}
+		]]>
+	</if> group by homepageid) li on li.homepageid = home.id
+	left join (select count(*) browse_count,homepageid from meme_browse where 1=1 <if test="startdate != null">
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') >= #{addtime}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(addtime,'%Y-%m-%d %H:%i:%s') <= #{addtime}
+		]]>
+	</if> group by homepageid) browse on browse.homepageid = home.id
+	<if test="member_str != null and member_str != ''">
+		and  (meme.nickname LIKE  CONCAT('%', #{member_str},'%') OR meme.account LIKE  CONCAT('%', #{member_str},'%'))
+	</if>
+     <if test="file_type != null">
+		and  file_type = #{file_type}
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by insert_date desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit} 
+  </select>
+  <select id="countView2" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+   		select count(*) from meme_homepage home left join meme_member meme on home.memberid = meme.memberid where 1=1
+   		<if test="member_str != null and member_str != ''">
+			and  (meme.nickname LIKE  CONCAT('%', #{member_str},'%') OR meme.account LIKE  CONCAT('%', #{member_str},'%'))
+		</if>
+	     <if test="file_type != null">
+			and  file_type = #{file_type}
+		</if>
+  </select>
+  </mapper>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeShopMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeShop" >
+    <id column="productid" property="productid" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="body" property="body" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    productid, subject, body, amount
+  </sql>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT s.*
+	FROM meme_shop s
+	WHERE 1=1
+	<if test="productname != null and productname != ''">
+		and s.subject LIKE CONCAT('%', #{productname},'%')
+	</if>
+	<if test="productintro != null and productintro != ''">
+		and s.body LIKE CONCAT('%', #{productintro},'%')
+	</if>
+	<if test="state =='0'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ > ]]> #{productprice}
+	</if>
+	<if test="state =='1'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ < ]]> #{productprice}
+	</if>
+	<if test="state =='2'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ = ]]> #{productprice}
+	</if>
+	<!-- <if test="state != null">
+		AND o.state=#{state}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and (
+			o.subject LIKE CONCAT('%', #{searchKey},'%')
+			or o.body LIKE CONCAT('%', #{searchKey},'%')
+		)
+	</if>
+	<if test="startdate != null">
+		AND date_format(o.addtime,'%Y-%m-%d %H:%i:%s') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(o.addtime,'%Y-%m-%d %H:%i:%s') <= #{enddate}
+		]]>
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by o.addtime desc</otherwise>
+	</choose> -->
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*)
+	FROM meme_shop s 
+	WHERE 1=1
+	<if test="productname != null and productname != ''">
+		and s.subject LIKE CONCAT('%', #{productname},'%')
+	</if>
+	<if test="productintro != null and productintro != ''">
+		and s.body LIKE CONCAT('%', #{productintro},'%')
+	</if>
+	<if test="state =='0'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ > ]]> #{productprice}
+	</if>
+	<if test="state =='1'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ < ]]> #{productprice}
+	</if>
+	<if test="state =='2'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ = ]]> #{productprice}
+	</if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_shop
+    where productid = #{productid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_shop
+    where productid = #{productid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeShop" >
+    insert into meme_shop (productid, subject, body,amount)
+    values (#{productid,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeShop" >
+    insert into meme_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        productid,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+     </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeShop" >
+    update meme_shop
+    <set >
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where productid = #{productid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeShop" >
+    update meme_shop
+    set subject = #{subject,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL}
+    where productid = #{productid,jdbcType=VARCHAR}
+  </update>
+</mapper>

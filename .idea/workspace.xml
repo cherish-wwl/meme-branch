@@ -1,0 +1,1328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="meme-web:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d176742a-7cf2-4bb7-8d75-1b6b3ec83d2b" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/meme-core/target/" />
+    <ignored path="$PROJECT_DIR$/meme-web/target/" />
+    <ignored path="$PROJECT_DIR$/meme-jar/target/" />
+    <ignored path="$PROJECT_DIR$/meme-qiniu/target/" />
+    <ignored path="$PROJECT_DIR$/meme-im/target/" />
+    <ignored path="$PROJECT_DIR$/meme-pay/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <expand />
+    <select />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="druid.properties" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/druid.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="druid.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/pre/druid.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="9" lean-forward="true" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="redis.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/redis.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AlipayController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/meme-pay/src/main/java/com/meme/pay/alipay/controller/AlipayController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="21" column="44" lean-forward="false" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReturnParam.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/meme-pay/src/main/java/com/meme/pay/alipay/entity/ReturnParam.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WappayController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/meme-pay/src/main/java/com/meme/pay/alipay/controller/WappayController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="43" column="13" lean-forward="false" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AlipayApiException.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/alipay/sdk-java/20171123203126/sdk-java-20171123203126.jar!/com/alipay/api/AlipayApiException.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="608">
+              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>sdk-java</find>
+    </findStrings>
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/meme-web/src/main/resources/pre/druid.properties" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/meme-web/pom.xml" />
+        <option value="$PROJECT_DIR$/meme-web/src/main/resources/druid.properties" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="H:\maven\maven-3.6.0\repository" />
+        <option name="mavenHome" value="H:/maven/apache-maven-3.6.0" />
+        <option name="userSettingsFile" value="H:\maven\apache-maven-3.6.0\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="meme-pay" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="meme-pay" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="87" />
+    <option name="width" value="1400" />
+    <option name="height" value="860" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-im" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-pay" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-pay" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-pay" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-pay" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-pay" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="pay" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-pay" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="pay" type="462c0819:PsiDirectoryNode" />
+              <item name="alipay" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-pay" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="pay" type="462c0819:PsiDirectoryNode" />
+              <item name="alipay" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-pay" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="pay" type="462c0819:PsiDirectoryNode" />
+              <item name="alipay" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="pre" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="meme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="meme-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="pro" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543647687519" />
+    <property name="last_opened_file_path" value="$USER_HOME$/.m2/repository/com/alipay/sdk-java/20171123203126/alipay-sdk-java20171123203126.jar!/" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.39519852" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="远程">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration default="true" type="TomeeConfiguration" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment />
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="_meme" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="56314" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="H:\java1.8\jre">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment />
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="_meme_2" />
+        <option name="HTTP_PORT" value="8080" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="56315" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+    </configuration>
+    <configuration name="tomcat9" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="H:\java1.8\jre">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="meme-web:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_meme_2" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="56315" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="meme-web:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\wwl\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d176742a-7cf2-4bb7-8d75-1b6b3ec83d2b" name="Default Changelist" comment="" />
+      <created>1543642202811</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1543642202811</updated>
+      <workItem from="1543642217850" duration="570000" />
+      <workItem from="1543642969565" duration="60000" />
+      <workItem from="1543643065246" duration="2229000" />
+      <workItem from="1543656122570" duration="1854000" />
+      <workItem from="1543658084415" duration="1152000" />
+      <workItem from="1543752214602" duration="1228000" />
+      <workItem from="1543753507646" duration="2870000" />
+    </task>
+    <task id="LOCAL-00001">
+      <created>1543642577804</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1543642577804</updated>
+    </task>
+    <task id="LOCAL-00002">
+      <created>1543643120381</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1543643120381</updated>
+    </task>
+    <task id="LOCAL-00003">
+      <created>1543643766496</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1543643766496</updated>
+    </task>
+    <task id="LOCAL-00004">
+      <created>1543644091399</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1543644091399</updated>
+    </task>
+    <task id="LOCAL-00005">
+      <created>1543647548573</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1543647548574</updated>
+    </task>
+    <task id="LOCAL-00006">
+      <created>1543647685640</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1543647685640</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="9963000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5675676" sideWeight="0.5021322" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17590618" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="调色板" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5675676" sideWeight="0.4978678" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40638608" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5437838" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2707889" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="设计器" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/druid.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="38" lean-forward="false" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-jar/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/src/main/java/com/meme/pay/alipay/controller/AlipayController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="741">
+          <caret line="39" column="13" lean-forward="false" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/src/main/java/com/meme/pay/alipay/entity/ReturnParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-qiniu/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="27" column="16" lean-forward="false" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/meme-pay.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/src/main/java/com/meme/pay/alipay/controller/WappayController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="48" lean-forward="false" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/pre/druid.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/druid.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-qiniu/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="27" column="16" lean-forward="false" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/src/main/java/com/meme/pay/alipay/controller/WappayController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="21" lean-forward="false" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/pre/druid.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/druid.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://MAVEN/com.meme.core:meme-core:1.0">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>MAVEN</ID>
+          <OriginalElement>com.meme.core:meme-core:1.0</OriginalElement>
+          <nodes>
+            <node x="" y="">com.meme.core:meme-core:1.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.alipay:sdk-java:jar:20171123203126</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.thoughtworks.xstream:xstream:jar:1.4.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.thoughtworks.xstream:xstream:jar:1.4.9/xmlpull:xmlpull:jar:1.1.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.thoughtworks.xstream:xstream:jar:1.4.9/xpp3:xpp3_min:jar:1.1.4c</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-core:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-core:jar:4.3.6.RELEASE/commons-logging:commons-logging:jar:1.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-web:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-web:jar:4.3.6.RELEASE/org.springframework:spring-beans:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-web:jar:4.3.6.RELEASE/org.springframework:spring-context:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-oxm:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-tx:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-jdbc:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-webmvc:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-webmvc:jar:4.3.6.RELEASE/org.springframework:spring-expression:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-aop:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-context-support:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-test:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-websocket:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/javax.servlet:javax.servlet-api:jar:3.1.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.fasterxml.jackson.core:jackson-core:jar:2.8.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.fasterxml.jackson.core:jackson-databind:jar:2.8.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.fasterxml.jackson.core:jackson-databind:jar:2.8.1/com.fasterxml.jackson.core:jackson-annotations:jar:2.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.fasterxml.jackson.core:jackson-annotations:jar:2.8.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework:spring-messaging:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.mybatis:mybatis:jar:3.2.8</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.mybatis:mybatis-spring:jar:1.2.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.aspectj:aspectjrt:jar:1.8.8</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.aspectj:aspectjweaver:jar:1.8.8</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/javax:javaee-api:jar:7.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/javax:javaee-api:jar:7.0/com.sun.mail:javax.mail:jar:1.5.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/javax:javaee-api:jar:7.0/com.sun.mail:javax.mail:jar:1.5.0/javax.activation:activation:jar:1.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/mysql:mysql-connector-java:jar:5.1.35</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/jstl:jstl:jar:1.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/log4j:log4j:jar:1.2.17</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.alibaba:druid:jar:1.0.27</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.alibaba:druid:jar:1.0.27/com.alibaba:jconsole:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.alibaba:druid:jar:1.0.27/com.alibaba:tools:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.alibaba:fastjson:jar:1.2.29</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.mybatis:mybatis-ehcache:jar:1.0.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/net.sf.ehcache:ehcache:jar:2.10.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.slf4j:slf4j-api:jar:1.7.7</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.slf4j:slf4j-log4j12:jar:1.7.7</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13/org.codehaus.jackson:jackson-core-asl:jar:1.9.13</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/commons-fileupload:commons-fileupload:jar:1.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/commons-fileupload:commons-fileupload:jar:1.3.1/commons-io:commons-io:jar:2.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/commons-io:commons-io:jar:2.4</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/commons-beanutils:commons-beanutils:jar:1.9.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/commons-beanutils:commons-beanutils:jar:1.9.2/commons-logging:commons-logging:jar:1.1.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/commons-beanutils:commons-beanutils:jar:1.9.2/commons-collections:commons-collections:jar:3.2.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/commons-codec:commons-codec:jar:1.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.apache.poi:poi:jar:3.12</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/dom4j:dom4j:jar:1.6.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/dom4j:dom4j:jar:1.6.1/xml-apis:xml-apis:jar:1.0.b2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.googlecode.json-simple:json-simple:jar:1.1.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.googlecode.json-simple:json-simple:jar:1.1.1/junit:junit:jar:4.10</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.googlecode.json-simple:json-simple:jar:1.1.1/junit:junit:jar:4.10/org.hamcrest:hamcrest-core:jar:1.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.mybatis.generator:mybatis-generator-core:jar:1.3.3</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.apache.ant:ant:jar:1.8.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.apache.ant:ant:jar:1.8.2/org.apache.ant:ant-launcher:jar:1.8.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.apache.commons:commons-pool2:jar:2.4.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/io.jsonwebtoken:jjwt:jar:0.7.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/io.jsonwebtoken:jjwt:jar:0.7.0/com.fasterxml.jackson.core:jackson-databind:jar:2.8.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.google.zxing:core:jar:3.3.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.google.zxing:javase:jar:3.3.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.google.zxing:javase:jar:3.3.0/com.beust:jcommander:jar:1.48</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.google.zxing:javase:jar:3.3.0/com.github.jai-imageio:jai-imageio-core:jar:1.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/redis.clients:jedis:jar:2.9.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework.data:spring-data-keyvalue:jar:1.2.4.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework.data:spring-data-keyvalue:jar:1.2.4.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.4.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework.data:spring-data-keyvalue:jar:1.2.4.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.4.RELEASE/org.springframework:spring-core:jar:4.3.9.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework.data:spring-data-keyvalue:jar:1.2.4.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.4.RELEASE/org.springframework:spring-beans:jar:4.3.9.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework.data:spring-data-keyvalue:jar:1.2.4.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.4.RELEASE/org.slf4j:slf4j-api:jar:1.7.25</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework.data:spring-data-keyvalue:jar:1.2.4.RELEASE/org.springframework:spring-context:jar:4.3.9.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework.data:spring-data-keyvalue:jar:1.2.4.RELEASE/org.springframework:spring-tx:jar:4.3.9.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework.data:spring-data-keyvalue:jar:1.2.4.RELEASE/org.slf4j:slf4j-api:jar:1.7.7</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework:spring-tx:jar:4.3.6.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework:spring-oxm:jar:4.3.9.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework:spring-aop:jar:4.3.9.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.springframework:spring-context-support:jar:4.3.9.RELEASE</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.slf4j:slf4j-api:jar:1.7.7</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.slf4j:jcl-over-slf4j:jar:1.7.25</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.springframework.data:spring-data-redis:jar:1.8.4.RELEASE/org.slf4j:jcl-over-slf4j:jar:1.7.25/org.slf4j:slf4j-api:jar:1.7.7</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.barchart.wrap:barchart-wrap-jackson:jar:1.8.6-build001</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.qiniu:qiniu-java-sdk:jar:7.2.5</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.squareup.okhttp3:okhttp:jar:3.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.squareup.okhttp3:okhttp:jar:3.3.1/com.squareup.okio:okio:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.google.code.gson:gson:jar:2.6.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.qiniu:happy-dns-java:jar:0.1.4</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.jsoup:jsoup:jar:1.10.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-api:jar:3.11.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-chrome-driver:jar:3.11.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-chrome-driver:jar:3.11.0/commons-codec:commons-codec:jar:1.10</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-chrome-driver:jar:3.11.0/com.google.code.gson:gson:jar:2.8.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-chrome-driver:jar:3.11.0/com.squareup.okhttp3:okhttp:jar:3.9.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-chrome-driver:jar:3.11.0/com.squareup.okio:okio:jar:1.13.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-edge-driver:jar:3.11.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-edge-driver:jar:3.11.0/commons-codec:commons-codec:jar:1.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-edge-driver:jar:3.11.0/com.google.code.gson:gson:jar:2.6.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-edge-driver:jar:3.11.0/com.squareup.okhttp3:okhttp:jar:3.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-edge-driver:jar:3.11.0/com.squareup.okio:okio:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-firefox-driver:jar:3.11.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-firefox-driver:jar:3.11.0/commons-codec:commons-codec:jar:1.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-firefox-driver:jar:3.11.0/com.google.code.gson:gson:jar:2.6.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-firefox-driver:jar:3.11.0/com.squareup.okhttp3:okhttp:jar:3.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-firefox-driver:jar:3.11.0/com.squareup.okio:okio:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-ie-driver:jar:3.11.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-ie-driver:jar:3.11.0/commons-codec:commons-codec:jar:1.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-ie-driver:jar:3.11.0/com.google.code.gson:gson:jar:2.6.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-ie-driver:jar:3.11.0/com.squareup.okhttp3:okhttp:jar:3.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-ie-driver:jar:3.11.0/com.squareup.okio:okio:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-opera-driver:jar:3.11.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-opera-driver:jar:3.11.0/commons-codec:commons-codec:jar:1.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-opera-driver:jar:3.11.0/com.google.code.gson:gson:jar:2.6.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-opera-driver:jar:3.11.0/com.squareup.okhttp3:okhttp:jar:3.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-opera-driver:jar:3.11.0/com.squareup.okio:okio:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-remote-driver:jar:3.11.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-remote-driver:jar:3.11.0/commons-codec:commons-codec:jar:1.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-remote-driver:jar:3.11.0/com.google.code.gson:gson:jar:2.6.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-remote-driver:jar:3.11.0/com.squareup.okhttp3:okhttp:jar:3.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-remote-driver:jar:3.11.0/com.squareup.okio:okio:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-safari-driver:jar:3.11.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-safari-driver:jar:3.11.0/commons-codec:commons-codec:jar:1.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-safari-driver:jar:3.11.0/com.google.code.gson:gson:jar:2.6.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-safari-driver:jar:3.11.0/com.squareup.okhttp3:okhttp:jar:3.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-safari-driver:jar:3.11.0/com.squareup.okio:okio:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-support:jar:3.11.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-support:jar:3.11.0/commons-codec:commons-codec:jar:1.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-support:jar:3.11.0/com.google.code.gson:gson:jar:2.6.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-support:jar:3.11.0/com.squareup.okhttp3:okhttp:jar:3.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.seleniumhq.selenium:selenium-support:jar:3.11.0/com.squareup.okio:okio:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/net.bytebuddy:byte-buddy:jar:1.7.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.apache.commons:commons-exec:jar:1.3</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/commons-codec:commons-codec:jar:1.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/com.google.code.gson:gson:jar:2.6.2</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/com.google.guava:guava:jar:23.6-jre</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/com.google.guava:guava:jar:23.6-jre/com.google.code.findbugs:jsr305:jar:1.3.9</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/com.google.guava:guava:jar:23.6-jre/org.checkerframework:checker-compat-qual:jar:2.0.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/com.google.guava:guava:jar:23.6-jre/com.google.errorprone:error_prone_annotations:jar:2.1.3</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/com.google.guava:guava:jar:23.6-jre/com.google.j2objc:j2objc-annotations:jar:1.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/com.google.guava:guava:jar:23.6-jre/org.codehaus.mojo:animal-sniffer-annotations:jar:1.14</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.apache.httpcomponents:httpclient:jar:4.5.3</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/org.apache.httpcomponents:httpcore:jar:4.4.6</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/com.squareup.okhttp3:okhttp:jar:3.3.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/org.seleniumhq.selenium:selenium-java:jar:3.11.0/com.squareup.okio:okio:jar:1.8.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.codeborne:phantomjsdriver:jar:1.4.4</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.codeborne:phantomjsdriver:jar:1.4.4/org.seleniumhq.selenium:selenium-api:jar:3.8.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.codeborne:phantomjsdriver:jar:1.4.4/org.seleniumhq.selenium:selenium-remote-driver:jar:3.8.1</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.aliyun:aliyun-java-sdk-core:jar:3.2.8</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.aliyun:aliyun-java-sdk-dysmsapi:jar:1.1.0</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.github.pagehelper:pagehelper:jar:5.1.4</node>
+            <node x="" y="">com.meme.jar:meme-jar:jar:1.0/com.github.pagehelper:pagehelper:jar:5.1.4/com.github.jsqlparser:jsqlparser:jar:1.0</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.019344854268764512" x="5805.0" y="915.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>All</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-qiniu/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="27" column="16" lean-forward="false" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/meme-pay.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="10" column="38" lean-forward="false" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-jar/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/src/main/java/com/meme/pay/alipay/entity/ReturnParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/alipay/sdk-java/20171123203126/sdk-java-20171123203126.jar!/com/alipay/api/AlipayApiException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/src/main/java/com/meme/pay/alipay/controller/WappayController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="43" column="13" lean-forward="false" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/alipay/sdk-java/20171123203126/sdk-java-20171123203126.jar!/com/alipay/api/internal/util/AlipaySignature.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+          <folding>
+            <marker date="1543505023086" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1543505023086" expanded="false" signature="152:833" ph="..." />
+            <marker date="1543505023086" expanded="true" signature="1004:1011" ph="{}" />
+            <marker date="1543505023086" expanded="true" signature="1097:1164" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="1256:1971" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="2047:2609" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="2738:3068" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="3183:3882" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="3994:4823" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="4947:5065" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="5171:5574" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="5651:6255" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="6332:6896" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="7023:7203" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="7347:7530" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="7657:7837" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="7981:8164" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="8307:8663" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="8799:9482" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="9615:10296" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="10399:10772" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="10959:11362" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="11566:11979" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="12163:13369" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="13570:14918" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="15032:16279" ph="{...}" />
+            <marker date="1543505023086" expanded="true" signature="16394:17701" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-web/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/dev/druid.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.3.6.RELEASE/spring-jdbc-4.3.6.RELEASE.jar!/org/springframework/jdbc/datasource/DataSourceTransactionManager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-pay/src/main/java/com/meme/pay/alipay/controller/AlipayController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="44" lean-forward="false" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/redis.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/pre/druid.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="9" lean-forward="true" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meme-web/src/main/resources/druid.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>meme-web:war exploded</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.39519852" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.39519852" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.39519852" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.39519852" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Web|meme-web</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.39519852" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: com.alipay:sdk-java:20171123203126</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.39519852" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.TvStationMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.TvStation" >
+    <id column="tvid" property="tvid" jdbcType="VARCHAR" />
+    <result column="tv_station" property="tvStation" jdbcType="VARCHAR" />
+    <result column="tvtype" property="tvtype" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tvid, tv_station, tvtype, addtime
+  </sql>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT * FROM meme_tv_station
+	WHERE 1=1
+	<if test="tvtype != null">
+		AND tvtype=#{tvtype}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		AND tvStation LIKE CONCAT('%', #{searchKey},'%')
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by addtime desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*)
+	FROM meme_tv_station
+	WHERE 1=1
+	<if test="tvtype != null">
+		AND tvtype=#{tvtype}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		AND tvStation LIKE CONCAT('%', #{searchKey},'%')
+	</if>
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_tv_station
+    where tvid = #{tvid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_tv_station
+    where tvid = #{tvid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.TvStation" >
+    insert into meme_tv_station (tvid, tv_station, tvtype, 
+      addtime)
+    values (#{tvid,jdbcType=VARCHAR}, #{tvStation,jdbcType=VARCHAR}, #{tvtype,jdbcType=INTEGER}, 
+      #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.TvStation" >
+    insert into meme_tv_station
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tvid != null" >
+        tvid,
+      </if>
+      <if test="tvStation != null" >
+        tv_station,
+      </if>
+      <if test="tvtype != null" >
+        tvtype,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tvid != null" >
+        #{tvid,jdbcType=VARCHAR},
+      </if>
+      <if test="tvStation != null" >
+        #{tvStation,jdbcType=VARCHAR},
+      </if>
+      <if test="tvtype != null" >
+        #{tvtype,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.TvStation" >
+    update meme_tv_station
+    <set >
+      <if test="tvStation != null" >
+        tv_station = #{tvStation,jdbcType=VARCHAR},
+      </if>
+      <if test="tvtype != null" >
+        tvtype = #{tvtype,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tvid = #{tvid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.TvStation" >
+    update meme_tv_station
+    set tv_station = #{tvStation,jdbcType=VARCHAR},
+      tvtype = #{tvtype,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP}
+    where tvid = #{tvid,jdbcType=VARCHAR}
+  </update>
+</mapper>

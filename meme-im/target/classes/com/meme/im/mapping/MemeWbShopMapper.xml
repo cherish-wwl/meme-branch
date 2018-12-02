@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeWbShopMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeWbShop" >
+    <id column="productid" property="productid" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="body" property="body" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="file" property="file" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    productid, subject, body, amount, memberid, file
+  </sql>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT ws.*,m.memberid,m.nickname,m.account FROM (SELECT s.*
+	FROM meme_wb_shop s
+	WHERE 1=1
+	<if test="productname != null and productname != ''">
+		and s.subject LIKE CONCAT('%', #{productname},'%')
+	</if>
+	<if test="productintro != null and productintro != ''">
+		and s.body LIKE CONCAT('%', #{productintro},'%')
+	</if>
+	<if test="state =='0'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ > ]]> #{productprice}
+	</if>
+	<if test="state =='1'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ < ]]> #{productprice}
+	</if>
+	<if test="state =='2'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ = ]]> #{productprice}
+	</if>
+	<if test="memberid != null and memberid != ''">
+		and  memberid = #{memberid}
+	</if>) ws
+	LEFT JOIN meme_member m ON ws.memberid = m.memberid WHERE 1=1
+	<if test="member_str != null and member_str != ''">
+		and  nickname LIKE  CONCAT('%', #{member_str},'%')
+	</if>
+	<if test="sort != null and sort != ''">order by ${sort} ${order}</if>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT COUNT(*) FROM (SELECT s.*
+	FROM meme_wb_shop s
+	WHERE 1=1
+	<if test="productname != null and productname != ''">
+		and s.subject LIKE CONCAT('%', #{productname},'%')
+	</if>
+	<if test="productintro != null and productintro != ''">
+		and s.body LIKE CONCAT('%', #{productintro},'%')
+	</if>
+	<if test="state =='0'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ > ]]> #{productprice}
+	</if>
+	<if test="state =='1'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ < ]]> #{productprice}
+	</if>
+	<if test="state =='2'.toString() and productprice != null and productprice != ''">
+		and s.amount <![CDATA[ = ]]> #{productprice}
+	</if>
+	<if test="memberid != null and memberid != ''">
+		and  memberid = #{memberid}
+	</if>) ws
+	LEFT JOIN meme_member m ON ws.memberid = m.memberid WHERE 1=1
+	<if test="member_str != null and member_str != ''">
+		and  nickname LIKE  CONCAT('%', #{member_str},'%')
+	</if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_wb_shop
+    where productid = #{productid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_wb_shop
+    where productid = #{productid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeWbShop" >
+    insert into meme_wb_shop (productid, subject, body,amount,memberid,file)
+    values (#{productid,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{memberid,jdbcType=BIGINT}, #{file,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeWbShop" >
+    insert into meme_wb_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        productid,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="file != null" >
+        file,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="file != null" >
+        #{file,jdbcType=VARCHAR},
+      </if>
+     </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeWbShop" >
+    update meme_wb_shop
+    <set >
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="file != null" >
+        file = #{file,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where productid = #{productid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeWbShop" >
+    update meme_wb_shop
+    set subject = #{subject,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL}
+      memberid = #{memberid,jdbcType=INTEGER},
+      file = #{file,jdbcType=VARCHAR}
+    where productid = #{productid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeColumnSectionMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeColumnSection" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="columnid" property="columnid" jdbcType="BIGINT" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="sectioncode" property="sectioncode" jdbcType="VARCHAR" />
+    <result column="sectionname" property="sectionname" jdbcType="VARCHAR" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="sourceapi" property="sourceapi" jdbcType="VARCHAR" />
+    <result column="ispagination" property="ispagination" jdbcType="INTEGER" />
+    <result column="moreurl" property="moreurl" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="com.meme.im.pojo.view.MemeColumnSectionView" id="view" extends="BaseResultMap">
+    <result column="columnname" property="columnname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, columnid, pid, sectioncode, sectionname, sortno, icon, sourceapi, ispagination, 
+    moreurl, tag
+  </sql>
+  <select id="getSelectedSections" resultMap="BaseResultMap" parameterType="java.lang.Long">
+  	SELECT * FROM meme_column_section WHERE id IN(SELECT sectionid FROM meme_content_section WHERE contentid=#{contentid})
+  </select>
+  <select id="selectAllSections" resultMap="view">
+  	SELECT sec.*,col.columnname
+	FROM meme_column_section sec
+	INNER JOIN meme_column col ON sec.columnid=col.id
+	ORDER BY sec.columnid,sec.pid,sec.sortno ASC
+  </select>
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from meme_column_section
+    where sectioncode=#{code}
+  </select>
+  <select id="selectColumnSections" resultMap="view" parameterType="java.lang.Long">
+  	SELECT sec.*,col.columnname
+	FROM meme_column_section sec
+	INNER JOIN meme_column col ON sec.columnid=col.id
+	WHERE sec.columnid=#{columnid}
+	ORDER BY sec.pid,sec.sortno ASC
+  </select>
+  <select id="selectByColumncode" resultMap="view" parameterType="java.lang.String">
+  	SELECT sec.*,col.columnname
+	FROM meme_column_section sec
+	INNER JOIN meme_column col ON sec.columnid=col.id
+	WHERE col.columncode=#{columncode}
+	ORDER BY sec.pid,sec.sortno ASC
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_column_section
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from meme_column_section
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeColumnSection" >
+    insert into meme_column_section (id, columnid, pid, 
+      sectioncode, sectionname, sortno, 
+      icon, sourceapi, ispagination, 
+      moreurl, tag)
+    values (#{id,jdbcType=BIGINT}, #{columnid,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, 
+      #{sectioncode,jdbcType=VARCHAR}, #{sectionname,jdbcType=VARCHAR}, #{sortno,jdbcType=INTEGER}, 
+      #{icon,jdbcType=VARCHAR}, #{sourceapi,jdbcType=VARCHAR}, #{ispagination,jdbcType=INTEGER}, 
+      #{moreurl,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeColumnSection" >
+    insert into meme_column_section
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="columnid != null" >
+        columnid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="sectioncode != null" >
+        sectioncode,
+      </if>
+      <if test="sectionname != null" >
+        sectionname,
+      </if>
+      <if test="sortno != null" >
+        sortno,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="sourceapi != null" >
+        sourceapi,
+      </if>
+      <if test="ispagination != null" >
+        ispagination,
+      </if>
+      <if test="moreurl != null" >
+        moreurl,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="columnid != null" >
+        #{columnid,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="sectioncode != null" >
+        #{sectioncode,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionname != null" >
+        #{sectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceapi != null" >
+        #{sourceapi,jdbcType=VARCHAR},
+      </if>
+      <if test="ispagination != null" >
+        #{ispagination,jdbcType=INTEGER},
+      </if>
+      <if test="moreurl != null" >
+        #{moreurl,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeColumnSection" >
+    update meme_column_section
+    <set >
+      <if test="columnid != null" >
+        columnid = #{columnid,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="sectioncode != null" >
+        sectioncode = #{sectioncode,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionname != null" >
+        sectionname = #{sectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        sortno = #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceapi != null" >
+        sourceapi = #{sourceapi,jdbcType=VARCHAR},
+      </if>
+      <if test="ispagination != null" >
+        ispagination = #{ispagination,jdbcType=INTEGER},
+      </if>
+      <if test="moreurl != null" >
+        moreurl = #{moreurl,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeColumnSection" >
+    update meme_column_section
+    set columnid = #{columnid,jdbcType=BIGINT},
+      pid = #{pid,jdbcType=BIGINT},
+      sectioncode = #{sectioncode,jdbcType=VARCHAR},
+      sectionname = #{sectionname,jdbcType=VARCHAR},
+      sortno = #{sortno,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      sourceapi = #{sourceapi,jdbcType=VARCHAR},
+      ispagination = #{ispagination,jdbcType=INTEGER},
+      moreurl = #{moreurl,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

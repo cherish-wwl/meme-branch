@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemberBillboardItemMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemberBillboardItem" >
+    <id column="bitemid" property="bitemid" jdbcType="VARCHAR" />
+    <result column="billboardid" property="billboardid" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bitemid, billboardid, url, remark, addtime
+  </sql>
+  <select id="selectByBillboardids" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from meme_member_billboard_item
+    where  billboardid in
+    <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+  		#{item}
+  	</foreach>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_member_billboard_item
+    where bitemid = #{bitemid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_member_billboard_item
+    where bitemid = #{bitemid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemberBillboardItem" >
+    insert into meme_member_billboard_item (bitemid, billboardid, url, 
+      remark, addtime)
+    values (#{bitemid,jdbcType=VARCHAR}, #{billboardid,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemberBillboardItem" >
+    insert into meme_member_billboard_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bitemid != null" >
+        bitemid,
+      </if>
+      <if test="billboardid != null" >
+        billboardid,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bitemid != null" >
+        #{bitemid,jdbcType=VARCHAR},
+      </if>
+      <if test="billboardid != null" >
+        #{billboardid,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemberBillboardItem" >
+    update meme_member_billboard_item
+    <set >
+      <if test="billboardid != null" >
+        billboardid = #{billboardid,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bitemid = #{bitemid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemberBillboardItem" >
+    update meme_member_billboard_item
+    set billboardid = #{billboardid,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP}
+    where bitemid = #{bitemid,jdbcType=VARCHAR}
+  </update>
+</mapper>

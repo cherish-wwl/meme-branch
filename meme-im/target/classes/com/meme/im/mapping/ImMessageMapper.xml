@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.ImMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.ImMessage" >
+    <id column="msgid" property="msgid" jdbcType="BIGINT" />
+    <result column="sendid" property="sendid" jdbcType="BIGINT" />
+    <result column="acceptid" property="acceptid" jdbcType="BIGINT" />
+    <result column="groupid" property="groupid" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="msgtype" property="msgtype" jdbcType="INTEGER" />
+    <result column="sendtime" property="sendtime" jdbcType="TIMESTAMP" />
+    <result column="accepttime" property="accepttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.meme.im.pojo.ImMessage" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    msgid, sendid, acceptid, groupid, state, msgtype, sendtime, accepttime
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectUnReadMessages" resultType="java.util.HashMap">
+  	SELECT
+		msg.content AS content,
+		msg.msgid AS msgid,
+		send_m.nickname AS username,
+		send_m.avatar,
+		send_m.memberid AS id,
+		CASE msg.msgtype
+			WHEN 0 THEN 'friend'
+			WHEN 1 THEN 'group'
+			WHEN 2 THEN 'sys'
+			WHEN 3 THEN 'kefu'
+		ELSE '' END AS type,
+		false AS mine,
+		msg.sendtime AS 'timestamp'
+	FROM
+		meme_im_message msg
+	INNER JOIN meme_member accept_m ON accept_m.memberid = msg.acceptid
+	LEFT JOIN meme_member send_m ON send_m.memberid = msg.sendid
+	WHERE
+		msg.state = 0 AND msg.msgtype=0 AND msg.acceptid=#{memberid} ORDER BY msg.sendtime
+  </select>
+  <select id="selectUnReadGroupMessages" resultType="java.util.HashMap">
+  	SELECT
+		msg.content AS content,
+		msg.msgid AS msgid,
+		send_m.nickname AS username,
+		send_m.avatar,
+		msg.groupid AS id,
+		CASE msg.msgtype
+			WHEN 0 THEN 'friend'
+			WHEN 1 THEN 'group'
+			WHEN 2 THEN 'sys'
+			WHEN 3 THEN 'kefu'
+		ELSE '' END AS type,
+		false AS mine,
+		msg.sendtime AS 'timestamp'
+	FROM
+		meme_im_message msg
+	INNER JOIN meme_member accept_m ON accept_m.memberid = msg.acceptid
+	LEFT JOIN meme_member send_m ON msg.sendid = send_m.memberid
+	WHERE
+		msg.state = 0 AND msg.msgtype=1 AND msg.acceptid=#{memberid} ORDER BY msg.sendtime
+  </select>
+  <select id="selectFriendMessages" resultType="java.util.HashMap">
+  	SELECT * FROM(
+  	SELECT
+		msg.content AS content,
+		send_m.nickname AS username,
+		send_m.avatar,
+		msg.acceptid AS id,
+		CASE msg.msgtype
+			WHEN 0 THEN 'friend'
+			WHEN 1 THEN 'group'
+			WHEN 2 THEN 'sys'
+			WHEN 3 THEN 'kefu'
+		ELSE '' END AS type,
+		true AS mine,
+		msg.sendtime AS 'timestamp'
+	FROM
+		meme_im_message msg
+	JOIN meme_member send_m ON send_m.memberid = msg.sendid
+	WHERE
+		msg.sendid=#{sendid} AND msg.acceptid=#{acceptid}
+	UNION 
+	SELECT
+		msg.content AS content,
+		send_m.nickname AS username,
+		send_m.avatar,
+		send_m.memberid AS id,
+		CASE msg.msgtype
+			WHEN 0 THEN 'friend'
+			WHEN 1 THEN 'group'
+			WHEN 2 THEN 'sys'
+			WHEN 3 THEN 'kefu'
+		ELSE '' END AS type,
+		false AS mine,
+		msg.sendtime AS 'timestamp'
+	FROM
+		meme_im_message msg
+	JOIN meme_member send_m ON send_m.memberid = msg.sendid
+	WHERE
+		msg.sendid=#{acceptid} AND msg.acceptid=#{sendid}
+	) msg ORDER BY msg.timestamp DESC limit #{page},20
+  </select>
+  <select id="selectGroupMessages" resultType="java.util.HashMap">
+  SELECT * FROM(
+  	SELECT
+		msg.content AS content,
+		send_m.nickname AS username,
+		send_m.avatar,
+		msg.groupid AS id,
+		CASE msg.msgtype
+			WHEN 0 THEN 'friend'
+			WHEN 1 THEN 'group'
+			WHEN 2 THEN 'sys'
+			WHEN 3 THEN 'kefu'
+		ELSE '' END AS type,
+		true AS mine,
+		msg.sendtime AS 'timestamp'
+	FROM
+		meme_im_message msg
+	JOIN meme_member send_m ON send_m.memberid = msg.sendid
+	WHERE
+		msg.sendid=#{memberid} AND msg.groupid=#{groupid}
+	UNION 
+	SELECT
+		msg.content AS content,
+		send_m.nickname AS username,
+		send_m.avatar,
+		msg.groupid AS id,
+		CASE msg.msgtype
+			WHEN 0 THEN 'friend'
+			WHEN 1 THEN 'group'
+			WHEN 2 THEN 'sys'
+			WHEN 3 THEN 'kefu'
+		ELSE '' END AS type,
+		false AS mine,
+		msg.sendtime AS 'timestamp'
+	FROM
+		meme_im_message msg
+	JOIN meme_member send_m ON send_m.memberid = msg.sendid
+	WHERE
+		msg.acceptid=#{memberid} AND msg.groupid=#{groupid}
+	) msg ORDER BY msg.timestamp DESC limit #{page},20
+  </select>
+  <update id="updateReadState" parameterType="java.util.List">
+  	update meme_im_message set state=1,accepttime=now()
+  	where msgid in
+  	<foreach item="item" index="index" collection="msgids" open="(" separator="," close=")">
+  		#{item}
+  	</foreach>
+  </update>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT 
+	msg.*,
+	send_mem.account AS send_account,
+	send_mem.nickname AS send_nickname,
+	send_mem.mtype AS send_mtype,
+	accept_mem.account AS accept_account,
+	accept_mem.nickname AS accept_nickname,
+	accept_mem.mtype AS accept_mtype
+	FROM meme_im_message msg
+	INNER JOIN meme_member send_mem ON msg.sendid=send_mem.memberid
+	INNER JOIN meme_member accept_mem ON msg.acceptid=accept_mem.memberid
+	WHERE 1=1
+	<if test="msgtype != null and msgtype != ''">
+		AND msg.msgtype=#{msgtype}
+	</if>
+	<if test="state != null and state != ''">
+		AND msg.state=#{state}
+	</if>
+	<if test="send_mtype != null and send_mtype != ''">
+		AND send_mem.mtype=#{send_mtype}
+	</if>
+	<if test="accept_mtype != null and accept_mtype != ''">
+		AND accept_mem.mtype=#{accept_mtype}
+	</if>
+	<if test="send_str != null and send_str != ''">
+		AND (send_mem.account LIKE CONCAT('%', #{send_str},'%') OR send_mem.nickname LIKE CONCAT('%', #{send_str},'%'))
+	</if>
+	<if test="accept_str != null and accept_str != ''">
+		AND (accept_mem.account LIKE CONCAT('%', #{accept_str},'%') OR accept_mem.nickname LIKE CONCAT('%', #{accept_str},'%'))
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and msg.content LIKE CONCAT('%', #{searchKey},'%')
+	</if>
+	<if test="startdate != null">
+		AND date_format(msg.sendtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(msg.sendtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by msg.sendtime desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*)
+	FROM meme_im_message msg
+	INNER JOIN meme_member send_mem ON msg.sendid=send_mem.memberid
+	INNER JOIN meme_member accept_mem ON msg.acceptid=accept_mem.memberid
+	WHERE 1=1
+	<if test="msgtype != null and msgtype != ''">
+		AND msg.msgtype=#{msgtype}
+	</if>
+	<if test="state != null and state != ''">
+		AND msg.state=#{state}
+	</if>
+	<if test="send_mtype != null and send_mtype != ''">
+		AND send_mem.mtype=#{send_mtype}
+	</if>
+	<if test="accept_mtype != null and accept_mtype != ''">
+		AND accept_mem.mtype=#{accept_mtype}
+	</if>
+	<if test="send_str != null and send_str != ''">
+		AND (send_mem.account LIKE CONCAT('%', #{send_str},'%') OR send_mem.nickname LIKE CONCAT('%', #{send_str},'%'))
+	</if>
+	<if test="accept_str != null and accept_str != ''">
+		AND (accept_mem.account LIKE CONCAT('%', #{accept_str},'%') OR accept_mem.nickname LIKE CONCAT('%', #{accept_str},'%'))
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and msg.content LIKE CONCAT('%', #{searchKey},'%')
+	</if>
+	<if test="startdate != null">
+		AND date_format(msg.sendtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(msg.sendtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+  </select>
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from meme_im_message
+    where msgid = #{msgid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from meme_im_message
+    where msgid = #{msgid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.ImMessage" >
+    insert into meme_im_message (msgid, sendid, acceptid, groupid,
+      state, msgtype, sendtime, 
+      accepttime, content)
+    values (#{msgid,jdbcType=BIGINT}, #{sendid,jdbcType=BIGINT}, #{acceptid,jdbcType=BIGINT}, #{groupid,jdbcType=BIGINT}, 
+      #{state,jdbcType=INTEGER}, #{msgtype,jdbcType=INTEGER}, #{sendtime,jdbcType=TIMESTAMP}, 
+      #{accepttime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.ImMessage" >
+    insert into meme_im_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msgid != null" >
+        msgid,
+      </if>
+      <if test="sendid != null" >
+        sendid,
+      </if>
+      <if test="acceptid != null" >
+        acceptid,
+      </if>
+      <if test="groupid != null" >
+        groupid,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="msgtype != null" >
+        msgtype,
+      </if>
+      <if test="sendtime != null" >
+        sendtime,
+      </if>
+      <if test="accepttime != null" >
+        accepttime,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msgid != null" >
+        #{msgid,jdbcType=BIGINT},
+      </if>
+      <if test="sendid != null" >
+        #{sendid,jdbcType=BIGINT},
+      </if>
+      <if test="acceptid != null" >
+        #{acceptid,jdbcType=BIGINT},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="msgtype != null" >
+        #{msgtype,jdbcType=INTEGER},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accepttime != null" >
+        #{accepttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.ImMessage" >
+    update meme_im_message
+    <set >
+      <if test="sendid != null" >
+        sendid = #{sendid,jdbcType=BIGINT},
+      </if>
+      <if test="acceptid != null" >
+        acceptid = #{acceptid,jdbcType=BIGINT},
+      </if>
+      <if test="groupid != null" >
+        groupid = #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="msgtype != null" >
+        msgtype = #{msgtype,jdbcType=INTEGER},
+      </if>
+      <if test="sendtime != null" >
+        sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accepttime != null" >
+        accepttime = #{accepttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where msgid = #{msgid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.meme.im.pojo.ImMessage" >
+    update meme_im_message
+    set sendid = #{sendid,jdbcType=BIGINT},
+      acceptid = #{acceptid,jdbcType=BIGINT},
+      groupid = #{groupid,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER},
+      msgtype = #{msgtype,jdbcType=INTEGER},
+      sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      accepttime = #{accepttime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where msgid = #{msgid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.ImMessage" >
+    update meme_im_message
+    set sendid = #{sendid,jdbcType=BIGINT},
+      acceptid = #{acceptid,jdbcType=BIGINT},
+      groupid = #{groupid,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER},
+      msgtype = #{msgtype,jdbcType=INTEGER},
+      sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      accepttime = #{accepttime,jdbcType=TIMESTAMP}
+    where msgid = #{msgid,jdbcType=BIGINT}
+  </update>
+</mapper>

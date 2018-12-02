@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemberPrivateMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemberPrivate" >
+    <id column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="idNumber" property="idNumber" jdbcType="VARCHAR" />
+    <result column="bankCard" property="bankCard" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    memberid, name, idNumber, bankCard 
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_member
+    where memberid = #{memberid,jdbcType=BIGINT}
+  </select>
+  <select id="selectByIds" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from meme_member
+    where memberid in 
+     <foreach item="item" index="index" collection="list" open="("  
+            separator="," close=")">  
+            #{item}  
+        </foreach>  
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemberPrivate" >
+    update meme_member
+    <set >
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null" >
+        idNumber = #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        bankCard = #{bankCard,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where memberid = #{memberid,jdbcType=BIGINT}
+  </update>
+</mapper>

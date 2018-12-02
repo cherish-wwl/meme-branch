@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.core.dao.OrganMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.core.pojo.OrganMenu" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="organid" property="organid" jdbcType="BIGINT" />
+    <result column="menuid" property="menuid" jdbcType="BIGINT" />
+    <result column="platformid" property="platformid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, organid, menuid, platformid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_organ_menu
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_organ_menu
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.core.pojo.OrganMenu" >
+    insert into sys_organ_menu (id, organid, menuid, 
+      platformid)
+    values (#{id,jdbcType=BIGINT}, #{organid,jdbcType=BIGINT}, #{menuid,jdbcType=BIGINT}, 
+      #{platformid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.core.pojo.OrganMenu" >
+    insert into sys_organ_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="organid != null" >
+        organid,
+      </if>
+      <if test="menuid != null" >
+        menuid,
+      </if>
+      <if test="platformid != null" >
+        platformid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="organid != null" >
+        #{organid,jdbcType=BIGINT},
+      </if>
+      <if test="menuid != null" >
+        #{menuid,jdbcType=BIGINT},
+      </if>
+      <if test="platformid != null" >
+        #{platformid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.core.pojo.OrganMenu" >
+    update sys_organ_menu
+    <set >
+      <if test="organid != null" >
+        organid = #{organid,jdbcType=BIGINT},
+      </if>
+      <if test="menuid != null" >
+        menuid = #{menuid,jdbcType=BIGINT},
+      </if>
+      <if test="platformid != null" >
+        platformid = #{platformid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.core.pojo.OrganMenu" >
+    update sys_organ_menu
+    set organid = #{organid,jdbcType=BIGINT},
+      menuid = #{menuid,jdbcType=BIGINT},
+      platformid = #{platformid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

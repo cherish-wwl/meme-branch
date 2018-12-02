@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemberBgTemMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemberBgTem" >
+    <id column="tempid" property="tempid" jdbcType="VARCHAR" />
+    <result column="temname" property="temname" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tempid, temname, url, sortno, addtime
+  </sql>
+  <select id="getBgTemplates" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from meme_member_bg_tem order by sortno DESC
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_member_bg_tem
+    where tempid = #{tempid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_member_bg_tem
+    where tempid = #{tempid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemberBgTem" >
+    insert into meme_member_bg_tem (tempid, temname, url, 
+      sortno, addtime)
+    values (#{tempid,jdbcType=VARCHAR}, #{temname,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{sortno,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemberBgTem" >
+    insert into meme_member_bg_tem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tempid != null" >
+        tempid,
+      </if>
+      <if test="temname != null" >
+        temname,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="sortno != null" >
+        sortno,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tempid != null" >
+        #{tempid,jdbcType=VARCHAR},
+      </if>
+      <if test="temname != null" >
+        #{temname,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemberBgTem" >
+    update meme_member_bg_tem
+    <set >
+      <if test="temname != null" >
+        temname = #{temname,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        sortno = #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tempid = #{tempid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemberBgTem" >
+    update meme_member_bg_tem
+    set temname = #{temname,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      sortno = #{sortno,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP}
+    where tempid = #{tempid,jdbcType=VARCHAR}
+  </update>
+</mapper>

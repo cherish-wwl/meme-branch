@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.VisitLogMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.VisitLog" >
+    <id column="logid" property="logid" jdbcType="BIGINT" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="ip" property="ip" jdbcType="CHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="terminal" property="terminal" jdbcType="VARCHAR" />
+    <result column="btype" property="btype" jdbcType="VARCHAR" />
+    <result column="isp" property="isp" jdbcType="VARCHAR" />
+    <result column="staytime" property="staytime" jdbcType="BIGINT" />
+    <result column="leavetime" property="leavetime" jdbcType="TIMESTAMP" />
+    <result column="visittime" property="visittime" jdbcType="TIMESTAMP" />
+    <result column="jsreadytime" property="jsreadytime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.meme.im.pojo.VisitLog" extends="BaseResultMap" >
+    <result column="url" property="url" jdbcType="LONGVARCHAR" />
+    <result column="referrer" property="referrer" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    logid, memberid, ip, country, province, city, terminal, btype, isp, staytime, leavetime, 
+    visittime, jsreadytime
+  </sql>
+  <sql id="Blob_Column_List" >
+    url, referrer
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from meme_visit_log
+    where logid = #{logid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from meme_visit_log
+    where logid = #{logid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.VisitLog" >
+    insert into meme_visit_log (logid, memberid, ip, 
+      country, province, city, 
+      terminal, btype, isp, 
+      staytime, leavetime, visittime, 
+      jsreadytime, url, referrer
+      )
+    values (#{logid,jdbcType=BIGINT}, #{memberid,jdbcType=BIGINT}, #{ip,jdbcType=CHAR}, 
+      #{country,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{terminal,jdbcType=VARCHAR}, #{btype,jdbcType=VARCHAR}, #{isp,jdbcType=VARCHAR}, 
+      #{staytime,jdbcType=BIGINT}, #{leavetime,jdbcType=TIMESTAMP}, #{visittime,jdbcType=TIMESTAMP}, 
+      #{jsreadytime,jdbcType=TIMESTAMP}, #{url,jdbcType=LONGVARCHAR}, #{referrer,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.VisitLog" >
+    insert into meme_visit_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        logid,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="terminal != null" >
+        terminal,
+      </if>
+      <if test="btype != null" >
+        btype,
+      </if>
+      <if test="isp != null" >
+        isp,
+      </if>
+      <if test="staytime != null" >
+        staytime,
+      </if>
+      <if test="leavetime != null" >
+        leavetime,
+      </if>
+      <if test="visittime != null" >
+        visittime,
+      </if>
+      <if test="jsreadytime != null" >
+        jsreadytime,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="referrer != null" >
+        referrer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        #{logid,jdbcType=BIGINT},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=CHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="terminal != null" >
+        #{terminal,jdbcType=VARCHAR},
+      </if>
+      <if test="btype != null" >
+        #{btype,jdbcType=VARCHAR},
+      </if>
+      <if test="isp != null" >
+        #{isp,jdbcType=VARCHAR},
+      </if>
+      <if test="staytime != null" >
+        #{staytime,jdbcType=BIGINT},
+      </if>
+      <if test="leavetime != null" >
+        #{leavetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visittime != null" >
+        #{visittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsreadytime != null" >
+        #{jsreadytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="referrer != null" >
+        #{referrer,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.VisitLog" >
+    update meme_visit_log
+    <set >
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=CHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="terminal != null" >
+        terminal = #{terminal,jdbcType=VARCHAR},
+      </if>
+      <if test="btype != null" >
+        btype = #{btype,jdbcType=VARCHAR},
+      </if>
+      <if test="isp != null" >
+        isp = #{isp,jdbcType=VARCHAR},
+      </if>
+      <if test="staytime != null" >
+        staytime = #{staytime,jdbcType=BIGINT},
+      </if>
+      <if test="leavetime != null" >
+        leavetime = #{leavetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visittime != null" >
+        visittime = #{visittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsreadytime != null" >
+        jsreadytime = #{jsreadytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="referrer != null" >
+        referrer = #{referrer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where logid = #{logid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.meme.im.pojo.VisitLog" >
+    update meme_visit_log
+    set memberid = #{memberid,jdbcType=BIGINT},
+      ip = #{ip,jdbcType=CHAR},
+      country = #{country,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      terminal = #{terminal,jdbcType=VARCHAR},
+      btype = #{btype,jdbcType=VARCHAR},
+      isp = #{isp,jdbcType=VARCHAR},
+      staytime = #{staytime,jdbcType=BIGINT},
+      leavetime = #{leavetime,jdbcType=TIMESTAMP},
+      visittime = #{visittime,jdbcType=TIMESTAMP},
+      jsreadytime = #{jsreadytime,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=LONGVARCHAR},
+      referrer = #{referrer,jdbcType=LONGVARCHAR}
+    where logid = #{logid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.VisitLog" >
+    update meme_visit_log
+    set memberid = #{memberid,jdbcType=BIGINT},
+      ip = #{ip,jdbcType=CHAR},
+      country = #{country,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      terminal = #{terminal,jdbcType=VARCHAR},
+      btype = #{btype,jdbcType=VARCHAR},
+      isp = #{isp,jdbcType=VARCHAR},
+      staytime = #{staytime,jdbcType=BIGINT},
+      leavetime = #{leavetime,jdbcType=TIMESTAMP},
+      visittime = #{visittime,jdbcType=TIMESTAMP},
+      jsreadytime = #{jsreadytime,jdbcType=TIMESTAMP}
+    where logid = #{logid,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemberAlbumItemMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemberAlbumItem" >
+    <id column="itemid" property="itemid" jdbcType="VARCHAR" />
+    <result column="albumid" property="albumid" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="thumb" property="thumb" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    itemid, albumid, url, thumb, addtime
+  </sql>
+  <select id="selectByAlbumids" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from meme_member_album_item
+    where albumid in
+    <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+  		#{item}
+  	</foreach>
+  </select>
+  <select id="selectTopFiveAlbumItems" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from meme_member_album_item
+    where albumid in (select albumid from meme_member_album where memberid=#{memberid}) 
+    order by addtime desc limit 0,5
+  </select>
+  <delete id="deleteByAlbum" parameterType="java.lang.String">
+  	delete from meme_member_album_item
+    where albumid=#{albumid}
+  </delete>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_member_album_item
+    where itemid = #{itemid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_member_album_item
+    where itemid = #{itemid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemberAlbumItem" >
+    insert into meme_member_album_item (itemid, albumid, url, 
+      thumb, addtime)
+    values (#{itemid,jdbcType=VARCHAR}, #{albumid,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{thumb,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemberAlbumItem" >
+    insert into meme_member_album_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        itemid,
+      </if>
+      <if test="albumid != null" >
+        albumid,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="thumb != null" >
+        thumb,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        #{itemid,jdbcType=VARCHAR},
+      </if>
+      <if test="albumid != null" >
+        #{albumid,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="thumb != null" >
+        #{thumb,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemberAlbumItem" >
+    update meme_member_album_item
+    <set >
+      <if test="albumid != null" >
+        albumid = #{albumid,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="thumb != null" >
+        thumb = #{thumb,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where itemid = #{itemid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemberAlbumItem" >
+    update meme_member_album_item
+    set albumid = #{albumid,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      thumb = #{thumb,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP}
+    where itemid = #{itemid,jdbcType=VARCHAR}
+  </update>
+</mapper>

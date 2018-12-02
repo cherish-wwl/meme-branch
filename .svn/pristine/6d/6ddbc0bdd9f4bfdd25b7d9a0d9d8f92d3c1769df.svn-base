@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.CategoryVideoItemMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.CategoryVideoItem" >
+    <id column="itemid" property="itemid" jdbcType="BIGINT" />
+    <result column="itemname" property="itemname" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+    <result column="isnew" property="isnew" jdbcType="INTEGER" />
+    <result column="isrecommend" property="isrecommend" jdbcType="INTEGER" />
+    <result column="isanchor" property="isanchor" jdbcType="INTEGER" />
+    <result column="publishtime" property="publishtime" jdbcType="TIMESTAMP" />
+    <result column="videoid" property="videoid" jdbcType="BIGINT" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    itemid, itemname, cover, url, sortno, isnew, isrecommend, isanchor, publishtime, 
+    videoid, author
+  </sql>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT 
+	item.*,
+	vi.catname
+	FROM meme_category_video_item item
+	INNER JOIN meme_category_video vi ON vi.id=item.videoid
+	WHERE 1=1
+	<if test="isnew != null">
+		AND item.isnew=#{isnew}
+	</if>
+	<if test="isrecommend != null">
+		AND item.isrecommend=#{isrecommend}
+	</if>
+	<if test="isanchor != null">
+		AND item.isanchor=#{isanchor}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and (
+			itemname LIKE CONCAT('%', #{searchKey},'%')
+			or author LIKE CONCAT('%', #{searchKey},'%')
+		)
+	</if>
+	<if test="startdate != null">
+		AND date_format(publishtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(publishtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by publishtime desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*)
+	FROM meme_category_video_item item
+	INNER JOIN meme_category_video vi ON vi.id=item.videoid
+	WHERE 1=1
+	<if test="isnew != null">
+		AND item.isnew=#{isnew}
+	</if>
+	<if test="isrecommend != null">
+		AND item.isrecommend=#{isrecommend}
+	</if>
+	<if test="isanchor != null">
+		AND item.isanchor=#{isanchor}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and (
+			itemname LIKE CONCAT('%', #{searchKey},'%')
+			or author LIKE CONCAT('%', #{searchKey},'%')
+		)
+	</if>
+	<if test="startdate != null">
+		AND date_format(publishtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(publishtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_category_video_item
+    where itemid = #{itemid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from meme_category_video_item
+    where itemid = #{itemid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.CategoryVideoItem" >
+    insert into meme_category_video_item (itemid, itemname, cover, 
+      url, sortno, isnew, 
+      isrecommend, isanchor, publishtime, 
+      videoid, author)
+    values (#{itemid,jdbcType=BIGINT}, #{itemname,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{sortno,jdbcType=INTEGER}, #{isnew,jdbcType=INTEGER}, 
+      #{isrecommend,jdbcType=INTEGER}, #{isanchor,jdbcType=INTEGER}, #{publishtime,jdbcType=TIMESTAMP}, 
+      #{videoid,jdbcType=BIGINT}, #{author,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.CategoryVideoItem" >
+    insert into meme_category_video_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        itemid,
+      </if>
+      <if test="itemname != null" >
+        itemname,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="sortno != null" >
+        sortno,
+      </if>
+      <if test="isnew != null" >
+        isnew,
+      </if>
+      <if test="isrecommend != null" >
+        isrecommend,
+      </if>
+      <if test="isanchor != null" >
+        isanchor,
+      </if>
+      <if test="publishtime != null" >
+        publishtime,
+      </if>
+      <if test="videoid != null" >
+        videoid,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="itemname != null" >
+        #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="isnew != null" >
+        #{isnew,jdbcType=INTEGER},
+      </if>
+      <if test="isrecommend != null" >
+        #{isrecommend,jdbcType=INTEGER},
+      </if>
+      <if test="isanchor != null" >
+        #{isanchor,jdbcType=INTEGER},
+      </if>
+      <if test="publishtime != null" >
+        #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoid != null" >
+        #{videoid,jdbcType=BIGINT},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.CategoryVideoItem" >
+    update meme_category_video_item
+    <set >
+      <if test="itemname != null" >
+        itemname = #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        sortno = #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="isnew != null" >
+        isnew = #{isnew,jdbcType=INTEGER},
+      </if>
+      <if test="isrecommend != null" >
+        isrecommend = #{isrecommend,jdbcType=INTEGER},
+      </if>
+      <if test="isanchor != null" >
+        isanchor = #{isanchor,jdbcType=INTEGER},
+      </if>
+      <if test="publishtime != null" >
+        publishtime = #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoid != null" >
+        videoid = #{videoid,jdbcType=BIGINT},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where itemid = #{itemid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.CategoryVideoItem" >
+    update meme_category_video_item
+    set itemname = #{itemname,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      sortno = #{sortno,jdbcType=INTEGER},
+      isnew = #{isnew,jdbcType=INTEGER},
+      isrecommend = #{isrecommend,jdbcType=INTEGER},
+      isanchor = #{isanchor,jdbcType=INTEGER},
+      publishtime = #{publishtime,jdbcType=TIMESTAMP},
+      videoid = #{videoid,jdbcType=BIGINT},
+      author = #{author,jdbcType=VARCHAR}
+    where itemid = #{itemid,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tables>
+	<table id="organization">
+		<field name="id" cnname="编号" type="bigint" defaltValue="" handleClass=""/>
+		<field name="name" cnname="组织机构名称" type="varchar" defaltValue="" handleClass=""/>
+		<field name="description" cnname="简介" type="varchar" defaltValue="" handleClass=""/>
+		<field name="type" cnname="组织机构类别" type="varchar" defaltValue="" handleClass=""/>
+		<field name="createtime" cnname="创建时间" type="datetime" defaltValue="" handleClass="com.meme.core.excel.handler.GMTDateHandler"/>
+		<field name="logo" cnname="图标" type="varchar" defaltValue="" handleClass=""/>
+	</table>
+	
+	<table id="sys_log">
+		<field name="id" cnname="编号" type="bigint" defaltValue="" handleClass=""/>
+		<field name="account" cnname="操作账号" type="varchar" defaltValue="" handleClass=""/>
+		<field name="event" cnname="操作事件" type="varchar" defaltValue="" handleClass=""/>
+		<field name="type" cnname="日志类型" type="varchar" defaltValue="" handleClass=""/>
+		<field name="ip" cnname="IP地址" type="varchar" defaltValue="" handleClass=""/>
+		<field name="url" cnname="请求URL" type="varchar" defaltValue="" handleClass=""/>
+		<field name="description" cnname="日志描述" type="varchar" defaltValue="" handleClass=""/>
+		<field name="terminal" cnname="操作终端" type="varchar" defaltValue="" handleClass=""/>
+		<field name="createtime" cnname="记录时间" type="datetime" defaltValue="" handleClass="com.meme.core.excel.handler.GMTDateHandler"/>
+	</table>
+</tables>

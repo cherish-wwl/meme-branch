@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="meme-web:war">
+    <output-path>$PROJECT_DIR$/meme-web/target</output-path>
+    <root id="archive" name="meme-web.war">
+      <element id="artifact" artifact-name="meme-web:war exploded" />
+    </root>
+  </artifact>
+</component>

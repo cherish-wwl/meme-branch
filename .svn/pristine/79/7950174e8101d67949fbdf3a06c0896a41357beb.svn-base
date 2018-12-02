@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeWbOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeWbOrder" >
+    <id column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="productid" property="productid" jdbcType="VARCHAR" />
+    <result column="tradeno" property="tradeno" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="body" property="body" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="paytype" property="paytype" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="paytime" property="paytime" jdbcType="TIMESTAMP" />
+    <result column="unit_price" property="unit_price" jdbcType="DOUBLE" />
+    <result column="product_count" property="product_count" jdbcType="INTEGER" />
+    <result column="exxpress_cost" property="exxpress_cost" jdbcType="DOUBLE" />
+    <result column="consignee" property="consignee" jdbcType="VARCHAR" />
+    <result column="receiving_telephone" property="receiving_telephone" jdbcType="VARCHAR" />
+    <result column="receiving_address" property="receiving_address" jdbcType="VARCHAR" />
+    <result column="deliver_time" property="deliver_time" jdbcType="TIMESTAMP" />
+    <result column="collect_time" property="collect_time" jdbcType="TIMESTAMP" />
+    <result column="courier_number" property="courier_number" jdbcType="VARCHAR" />
+    <result column="carrier" property="carrier" jdbcType="VARCHAR" />
+    <result column="r_state" property="r_state" jdbcType="INTEGER" />
+    <result column="r_reason" property="r_reason" jdbcType="VARCHAR" />
+    <result column="handling_opinions" property="handling_opinions" jdbcType="VARCHAR" />
+    <result column="r_apply_time" property="r_apply_time" jdbcType="TIMESTAMP" />
+    <result column="r_complete_time" property="r_complete_time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    orderid, memberid, productid, tradeno, subject, body, amount, paytype, state, addtime, unit_price,
+    paytime, product_count, exxpress_cost, consignee, receiving_telephone, receiving_address,deliver_time,
+    collect_time, courier_number, carrier, r_state, r_reason, handling_opinions, r_apply_time, r_complete_time
+  </sql>
+  <select id="selectMemberOrders" resultType="java.util.HashMap" parameterType="java.lang.Long" >
+  	SELECT
+  	o.*,wb_mem.nickname,CASE WHEN o.r_state = 0 THEN '已申请' WHEN o.r_state = 1 THEN '同意退货' WHEN o.r_state = 2 THEN '不同意退货' 
+  	WHEN o.r_state = 3 THEN '退货发出' WHEN o.r_state = 4 THEN '退货完成' 
+  	WHEN o.state = 0 THEN '未付款' WHEN o.state = 1 THEN '待发货' WHEN o.state = 2 THEN '待收货' WHEN o.state = 3 THEN '已收货' ELSE '' END state_text
+    from meme_wb_order o
+    LEFT JOIN meme_wb_shop shop ON o.productid = shop.productid
+	LEFT JOIN meme_member wb_mem ON shop.memberid = wb_mem.memberid
+    WHERE o.memberid=#{memberid}
+  </select>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT o.*,
+	mem.account,
+	mem.cellphone,
+	mem.nickname,
+	wb_mem.account wb_account,
+	wb_mem.nickname wb_nickname,
+	wb_mem.memberid wb_memberid
+	FROM meme_wb_order o 
+	LEFT JOIN meme_member mem ON o.memberid=mem.memberid
+	LEFT JOIN meme_wb_shop shop ON o.productid = shop.productid
+	LEFT JOIN meme_member wb_mem ON shop.memberid = wb_mem.memberid
+	WHERE 1=1
+	<if test="state != null">
+		AND o.state=#{state}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and (
+			o.subject LIKE CONCAT('%', #{searchKey},'%')
+			or o.body LIKE CONCAT('%', #{searchKey},'%')
+		)
+	</if>
+	<if test="startdate != null">
+		AND date_format(o.addtime,'%Y-%m-%d %H:%i:%s') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(o.addtime,'%Y-%m-%d %H:%i:%s') <= #{enddate}
+		]]>
+	</if>
+	<if test="memberid != null">
+		AND wb_mem.memberid = #{memberid}
+	</if>
+	<if test="member_str != null">
+		AND wb_mem.nickname LIKE CONCAT('%', #{member_str},'%')
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by o.addtime desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*)
+	FROM meme_wb_order o 
+	LEFT JOIN meme_wb_order mem ON o.memberid=mem.memberid
+	LEFT JOIN meme_wb_shop shop ON o.productid = shop.productid
+	LEFT JOIN meme_member wb_mem ON shop.memberid = wb_mem.memberid
+	WHERE 1=1
+	<if test="state != null">
+		AND o.state=#{state}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and (
+			o.subject LIKE CONCAT('%', #{searchKey},'%')
+			or o.body LIKE CONCAT('%', #{searchKey},'%')
+		)
+	</if>
+	<if test="startdate != null">
+		AND date_format(o.addtime,'%Y-%m-%d %H:%i:%s') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(o.addtime,'%Y-%m-%d %H:%i:%s') <= #{enddate}
+		]]>
+	</if>
+	<if test="memberid != null">
+		AND wb_mem.memberid = #{memberid}
+	</if>
+	<if test="member_str != null">
+		AND wb_mem.nickname LIKE CONCAT('%', #{member_str},'%')
+	</if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_wb_order
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_wb_order
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeWbOrder" >
+    insert into meme_wb_order (orderid, memberid, productid, 
+      tradeno, subject, body, 
+      amount, paytype, state, 
+      addtime, paytime, unit_price, product_count, exxpress_cost, consignee, receiving_telephone, receiving_address,
+    deliver_time, collect_time,courier_number, carrier, r_state, r_reason, handling_opinions, r_apply_time, r_complete_time)
+    values (#{orderid,jdbcType=VARCHAR}, #{memberid,jdbcType=BIGINT}, #{productid,jdbcType=VARCHAR}, 
+      #{tradeno,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{paytype,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{paytime,jdbcType=TIMESTAMP}, #{unit_price,jdbcType=DOUBLE}, #{product_count,jdbcType=INTEGER},
+       #{exxpress_cost,jdbcType=DOUBLE}, #{consignee,jdbcType=VARCHAR}, #{receiving_telephone,jdbcType=VARCHAR}
+       , #{receiving_address,jdbcType=VARCHAR}, #{deliver_time,jdbcType=TIMESTAMP},#{collect_time,jdbcType=TIMESTAMP}, #{courier_number,jdbcType=VARCHAR}, #{carrier,jdbcType=VARCHAR}
+       , #{r_state,jdbcType=INTEGER}, #{r_reason,jdbcType=VARCHAR}, #{handling_opinions,jdbcType=VARCHAR}, #{r_apply_time,jdbcType=TIMESTAMP}
+       , #{r_complete_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeWbOrder" >
+    insert into meme_wb_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="productid != null" >
+        productid,
+      </if>
+      <if test="tradeno != null" >
+        tradeno,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="paytype != null" >
+        paytype,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="paytime != null" >
+        paytime,
+      </if>
+      <if test="unit_price != null" >
+        unit_price,
+      </if>
+      <if test="product_count != null" >
+        product_count,
+      </if>
+      <if test="exxpress_cost != null" >
+        exxpress_cost,
+      </if>
+      <if test="consignee != null" >
+        consignee,
+      </if>
+      <if test="receiving_telephone != null" >
+        receiving_telephone,
+      </if>
+      <if test="receiving_address != null" >
+        receiving_address,
+      </if>
+      <if test="deliver_time != null" >
+        deliver_time,
+      </if>
+      <if test="collect_time != null" >
+        collect_time,
+      </if>
+      <if test="courier_number != null" >
+        courier_number,
+      </if>
+      <if test="carrier != null" >
+        carrier,
+      </if>
+      <if test="r_state != null" >
+        r_state,
+      </if>
+      <if test="r_reason != null" >
+        r_reason,
+      </if>
+      <if test="handling_opinions != null" >
+        handling_opinions,
+      </if>
+      <if test="r_apply_time != null" >
+        r_apply_time,
+      </if>
+      <if test="r_complete_time != null" >
+        r_complete_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="productid != null" >
+        #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeno != null" >
+        #{tradeno,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paytime != null" >
+        #{paytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unit_price != null" >
+        #{unit_price,jdbcType=DOUBLE},
+      </if>
+      <if test="product_count != null" >
+        #{product_count,jdbcType=INTEGER},
+      </if>
+      <if test="exxpress_cost != null" >
+        #{exxpress_cost,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null" >
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="receiving_telephone != null" >
+        #{receiving_telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiving_address != null" >
+        #{receiving_address,jdbcType=VARCHAR},
+      </if>
+      <if test="deliver_time != null" >
+        #{deliver_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="collect_time != null" >
+        #{collect_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="courier_number != null" >
+        #{courier_number,jdbcType=VARCHAR},
+      </if>
+      <if test="carrier != null" >
+        #{carrier,jdbcType=VARCHAR},
+      </if>
+      <if test="r_state != null" >
+        #{r_state,jdbcType=INTEGER},
+      </if>
+      <if test="r_reason != null" >
+        #{r_reason,jdbcType=VARCHAR},
+      </if>
+      <if test="handling_opinions != null" >
+        #{handling_opinions,jdbcType=VARCHAR},
+      </if>
+      <if test="r_apply_time != null" >
+        #{r_apply_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="r_complete_time != null" >
+        #{r_complete_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeWbOrder" >
+    update meme_wb_order
+    <set >
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="productid != null" >
+        productid = #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeno != null" >
+        tradeno = #{tradeno,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="paytype != null" >
+        paytype = #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paytime != null" >
+        paytime = #{paytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unit_price != null" >
+        unit_price = #{unit_price,jdbcType=DOUBLE},
+      </if>
+      <if test="product_count != null" >
+        product_count = #{product_count,jdbcType=INTEGER},
+      </if>
+      <if test="exxpress_cost != null" >
+        exxpress_cost = #{exxpress_cost,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null" >
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="receiving_telephone != null" >
+        receiving_telephone = #{receiving_telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiving_address != null" >
+        receiving_address = #{receiving_address,jdbcType=VARCHAR},
+      </if>
+      <if test="deliver_time != null" >
+        deliver_time = #{deliver_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="collect_time != null" >
+        collect_time = #{collect_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="courier_number != null" >
+        courier_number = #{courier_number,jdbcType=VARCHAR},
+      </if>
+      <if test="carrier != null" >
+        carrier = #{carrier,jdbcType=VARCHAR},
+      </if>
+      <if test="r_state != null" >
+        r_state = #{r_state,jdbcType=INTEGER},
+      </if>
+      <if test="r_reason != null" >
+        r_reason = #{r_reason,jdbcType=VARCHAR},
+      </if>
+      <if test="handling_opinions != null" >
+        handling_opinions = #{handling_opinions,jdbcType=VARCHAR},
+      </if>
+      <if test="r_apply_time != null" >
+        r_apply_time = #{r_apply_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="r_complete_time != null" >
+        r_complete_time = #{r_complete_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeWbOrder" >
+    update meme_wb_order
+    set memberid = #{memberid,jdbcType=BIGINT},
+      productid = #{productid,jdbcType=VARCHAR},
+      tradeno = #{tradeno,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      paytype = #{paytype,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      paytime = #{paytime,jdbcType=TIMESTAMP},
+      unit_price = #{unit_price,jdbcType=DOUBLE},
+      product_count = #{product_count,jdbcType=INTEGER},
+      exxpress_cost = #{exxpress_cost,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      receiving_telephone = #{receiving_telephone,jdbcType=VARCHAR},
+      receiving_address = #{receiving_address,jdbcType=VARCHAR},
+      deliver_time = #{deliver_time,jdbcType=TIMESTAMP},
+      collect_time = #{collect_time,jdbcType=TIMESTAMP},
+      courier_number = #{courier_number,jdbcType=VARCHAR},
+      carrier = #{carrier,jdbcType=VARCHAR},
+      r_state = #{r_state,jdbcType=INTEGER},
+      r_reason = #{r_reason,jdbcType=VARCHAR},
+      handling_opinions = #{handling_opinions,jdbcType=VARCHAR},
+      r_apply_time = #{r_apply_time,jdbcType=TIMESTAMP},
+      r_complete_time = #{r_complete_time,jdbcType=TIMESTAMP}
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.alipay:sdk-java:20171123203126">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/alipay/sdk-java/20171123203126/sdk-java-20171123203126.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/alipay/sdk-java/20171123203126/sdk-java-20171123203126-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/alipay/sdk-java/20171123203126/sdk-java-20171123203126-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

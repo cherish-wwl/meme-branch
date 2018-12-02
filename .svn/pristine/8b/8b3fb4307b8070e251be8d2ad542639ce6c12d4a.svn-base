@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.core.dao.ParamsMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.core.pojo.Params" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="prec" property="prec" jdbcType="INTEGER" />
+    <result column="scale" property="scale" jdbcType="INTEGER" />
+    <result column="nullable" property="nullable" jdbcType="INTEGER" />
+    <result column="enumvar" property="enumvar" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="vartype" property="vartype" jdbcType="VARCHAR" />
+    <result column="multi" property="multi" jdbcType="INTEGER" />
+    <result column="dictgroupcode" property="dictgroupcode" jdbcType="VARCHAR" />
+    <result column="validate" property="validate" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.meme.core.pojo.Params" extends="BaseResultMap" >
+    <result column="value" property="value" jdbcType="LONGVARCHAR" />
+    <result column="defval" property="defval" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, type, remark, prec, scale, nullable, enumvar, title, vartype, multi, 
+    dictgroupcode, validate
+  </sql>
+  <sql id="Blob_Column_List" >
+    value, defval
+  </sql>
+  <select id="selectAllParams" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_params where 1=1
+    <if test="type != null">
+    and type=#{type}
+    </if>
+  </select>
+  <update id="batchUpdateValue" parameterType="java.util.HashMap">
+  	<foreach collection="map" index="key" item="val" open="" close="" separator=";">
+  		update sys_params
+  		<set>
+  		value=#{val}
+  		</set>
+  		where name=#{key}
+  	</foreach>
+  </update>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_params
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_params
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.core.pojo.Params" >
+    insert into sys_params (id, name, type, 
+      remark, prec, scale, 
+      nullable, enumvar, title, 
+      vartype, multi, dictgroupcode, 
+      validate, value, defval
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{prec,jdbcType=INTEGER}, #{scale,jdbcType=INTEGER}, 
+      #{nullable,jdbcType=INTEGER}, #{enumvar,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{vartype,jdbcType=VARCHAR}, #{multi,jdbcType=INTEGER}, #{dictgroupcode,jdbcType=VARCHAR}, 
+      #{validate,jdbcType=VARCHAR}, #{value,jdbcType=LONGVARCHAR}, #{defval,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.core.pojo.Params" >
+    insert into sys_params
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="prec != null" >
+        prec,
+      </if>
+      <if test="scale != null" >
+        scale,
+      </if>
+      <if test="nullable != null" >
+        nullable,
+      </if>
+      <if test="enumvar != null" >
+        enumvar,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="vartype != null" >
+        vartype,
+      </if>
+      <if test="multi != null" >
+        multi,
+      </if>
+      <if test="dictgroupcode != null" >
+        dictgroupcode,
+      </if>
+      <if test="validate != null" >
+        validate,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="defval != null" >
+        defval,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="prec != null" >
+        #{prec,jdbcType=INTEGER},
+      </if>
+      <if test="scale != null" >
+        #{scale,jdbcType=INTEGER},
+      </if>
+      <if test="nullable != null" >
+        #{nullable,jdbcType=INTEGER},
+      </if>
+      <if test="enumvar != null" >
+        #{enumvar,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="vartype != null" >
+        #{vartype,jdbcType=VARCHAR},
+      </if>
+      <if test="multi != null" >
+        #{multi,jdbcType=INTEGER},
+      </if>
+      <if test="dictgroupcode != null" >
+        #{dictgroupcode,jdbcType=VARCHAR},
+      </if>
+      <if test="validate != null" >
+        #{validate,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="defval != null" >
+        #{defval,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.core.pojo.Params" >
+    update sys_params
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="prec != null" >
+        prec = #{prec,jdbcType=INTEGER},
+      </if>
+      <if test="scale != null" >
+        scale = #{scale,jdbcType=INTEGER},
+      </if>
+      <if test="nullable != null" >
+        nullable = #{nullable,jdbcType=INTEGER},
+      </if>
+      <if test="enumvar != null" >
+        enumvar = #{enumvar,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="vartype != null" >
+        vartype = #{vartype,jdbcType=VARCHAR},
+      </if>
+      <if test="multi != null" >
+        multi = #{multi,jdbcType=INTEGER},
+      </if>
+      <if test="dictgroupcode != null" >
+        dictgroupcode = #{dictgroupcode,jdbcType=VARCHAR},
+      </if>
+      <if test="validate != null" >
+        validate = #{validate,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="defval != null" >
+        defval = #{defval,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.meme.core.pojo.Params" >
+    update sys_params
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      prec = #{prec,jdbcType=INTEGER},
+      scale = #{scale,jdbcType=INTEGER},
+      nullable = #{nullable,jdbcType=INTEGER},
+      enumvar = #{enumvar,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      vartype = #{vartype,jdbcType=VARCHAR},
+      multi = #{multi,jdbcType=INTEGER},
+      dictgroupcode = #{dictgroupcode,jdbcType=VARCHAR},
+      validate = #{validate,jdbcType=VARCHAR},
+      value = #{value,jdbcType=LONGVARCHAR},
+      defval = #{defval,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.core.pojo.Params" >
+    update sys_params
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      prec = #{prec,jdbcType=INTEGER},
+      scale = #{scale,jdbcType=INTEGER},
+      nullable = #{nullable,jdbcType=INTEGER},
+      enumvar = #{enumvar,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      vartype = #{vartype,jdbcType=VARCHAR},
+      multi = #{multi,jdbcType=INTEGER},
+      dictgroupcode = #{dictgroupcode,jdbcType=VARCHAR},
+      validate = #{validate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

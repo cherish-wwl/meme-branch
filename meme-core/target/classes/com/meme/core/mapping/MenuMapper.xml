@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.core.dao.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.core.pojo.Menu" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="hid" property="hid" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="platformid" property="platformid" jdbcType="BIGINT" />
+    <result column="isallowchild" property="isallowchild" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, hid, name, url, platformid, isallowchild, icon, sortno
+  </sql>
+  <select id="selectLoginAccountMenus" resultMap="BaseResultMap">
+  	SELECT
+  	<include refid="Base_Column_List" />
+  	FROM sys_menu WHERE id in(
+		SELECT menuid FROM sys_role_menu where roleid in
+		<foreach item="item" index="index" collection="roleids" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+		AND platformid=#{platformid} 
+		GROUP BY menuid
+	) 
+	<if test="pid != null ">
+		AND pid=#{pid}
+	</if>
+	ORDER BY hid,pid,sortno asc
+  </select>
+  <select id="selectOrganMenus" resultMap="BaseResultMap">
+  	SELECT
+  	<include refid="Base_Column_List" />
+  	FROM sys_menu WHERE id in(SELECT menuid from sys_organ_menu WHERE organid=#{organid})
+  	<if test="platformids != null and platformids.size > 0">
+	  	AND platformid in
+	  	<foreach item="item" index="index" collection="platformids" open="(" separator="," close=")">
+	    	#{item}
+	    </foreach>
+  	</if>
+    ORDER BY hid,pid,sortno asc
+  </select>
+  <select id="selectRoleMenus" resultMap="BaseResultMap">
+  	SELECT
+  	<include refid="Base_Column_List" />
+  	FROM sys_menu WHERE id in(SELECT menuid from sys_role_menu WHERE roleid in
+  		<foreach item="item" index="index" collection="roleids" open="(" separator="," close=")">
+	    	#{item}
+		</foreach>
+  	)
+  	<if test="platformids != null and platformids.size > 0">
+	  	AND platformid in
+	  	<foreach item="item" index="index" collection="platformids" open="(" separator="," close=")">
+	    	#{item}
+	    </foreach>
+  	</if>
+    ORDER BY hid,pid,sortno asc
+  </select>
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_menu
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.core.pojo.Menu" >
+    insert into sys_menu (id, pid, hid, name, 
+      url, platformid, isallowchild, 
+      icon, sortno)
+    values (#{id,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{hid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{platformid,jdbcType=BIGINT}, #{isallowchild,jdbcType=INTEGER}, 
+      #{icon,jdbcType=VARCHAR}, #{sortno,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.core.pojo.Menu" >
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="hid != null" >
+        hid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="platformid != null" >
+        platformid,
+      </if>
+      <if test="isallowchild != null" >
+        isallowchild,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="sortno != null" >
+        sortno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="hid != null" >
+        #{hid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="platformid != null" >
+        #{platformid,jdbcType=BIGINT},
+      </if>
+      <if test="isallowchild != null" >
+        #{isallowchild,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.core.pojo.Menu" >
+    update sys_menu
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="hid != null" >
+        hid = #{hid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="platformid != null" >
+        platformid = #{platformid,jdbcType=BIGINT},
+      </if>
+      <if test="isallowchild != null" >
+        isallowchild = #{isallowchild,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        sortno = #{sortno,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.core.pojo.Menu" >
+    update sys_menu
+    set pid = #{pid,jdbcType=BIGINT},
+      hid = #{hid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      platformid = #{platformid,jdbcType=BIGINT},
+      isallowchild = #{isallowchild,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      sortno = #{sortno,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

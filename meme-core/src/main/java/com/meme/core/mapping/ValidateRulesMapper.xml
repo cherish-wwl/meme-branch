@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.core.dao.ValidateRulesMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.core.pojo.ValidateRules" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="tablename" property="tablename" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.meme.core.pojo.ValidateRules" extends="BaseResultMap" >
+    <result column="rules" property="rules" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tablename, version, addtime, updatetime
+  </sql>
+  <sql id="Blob_Column_List" >
+    rules
+  </sql>
+  <select id="selectLastRulesByTableName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+  	SELECT p.* FROM sys_validate_rules p WHERE p.tablename=#{tableName} ORDER BY p.addtime desc
+  </select>
+  <delete id="clearAll">
+  	DELETE FROM sys_validate_rules
+  </delete>
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_validate_rules
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_validate_rules
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.core.pojo.ValidateRules" >
+    insert into sys_validate_rules (id, tablename, version, 
+      addtime, updatetime, rules
+      )
+    values (#{id,jdbcType=BIGINT}, #{tablename,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{rules,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.core.pojo.ValidateRules" >
+    insert into sys_validate_rules
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tablename != null" >
+        tablename,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="rules != null" >
+        rules,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tablename != null" >
+        #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rules != null" >
+        #{rules,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.core.pojo.ValidateRules" >
+    update sys_validate_rules
+    <set >
+      <if test="tablename != null" >
+        tablename = #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rules != null" >
+        rules = #{rules,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.meme.core.pojo.ValidateRules" >
+    update sys_validate_rules
+    set tablename = #{tablename,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      rules = #{rules,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.core.pojo.ValidateRules" >
+    update sys_validate_rules
+    set tablename = #{tablename,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

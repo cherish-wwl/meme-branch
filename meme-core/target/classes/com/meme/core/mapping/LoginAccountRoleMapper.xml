@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.core.dao.LoginAccountRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.core.pojo.LoginAccountRole" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="loginid" property="loginid" jdbcType="BIGINT" />
+    <result column="roleid" property="roleid" jdbcType="BIGINT" />
+    <result column="organid" property="organid" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ViewResultMap" type="com.meme.core.pojo.LoginAccountRoleView" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="loginid" property="loginid" jdbcType="BIGINT" />
+    <result column="roleid" property="roleid" jdbcType="BIGINT" />
+    <result column="organid" property="organid" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="BIGINT" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, loginid, roleid, organid
+  </sql>
+  <sql id="View_Column_List" >
+    sys_login_account_role.id,
+	sys_login_account_role.loginid,
+	sys_login_account_role.roleid,
+	sys_login_account_role.organid,
+	sys_role.`name`,
+	sys_role.description,
+	sys_role.num,
+	sys_role.starttime,
+	sys_role.endtime
+  </sql>
+  <select id="selectByLoginId" resultMap="ViewResultMap" parameterType="java.lang.Long" >
+  	SELECT
+	<include refid="View_Column_List" />
+	FROM
+	sys_login_account_role
+	INNER JOIN sys_role ON sys_login_account_role.roleid = sys_role.id 
+	AND sys_login_account_role.organid = sys_role.organid 
+	WHERE  sys_login_account_role.loginid=#{loginid}
+  </select>
+  <select id="selectByLoginIds" resultMap="ViewResultMap" parameterType="java.util.List" >
+  	SELECT
+	<include refid="View_Column_List" />
+	FROM
+	sys_login_account_role
+	INNER JOIN sys_role ON sys_login_account_role.roleid = sys_role.id 
+	AND sys_login_account_role.organid = sys_role.organid 
+	WHERE  sys_login_account_role.loginid in
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+    	#{item}
+    </foreach>
+  </select>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_login_account_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_login_account_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.core.pojo.LoginAccountRole" >
+    insert into sys_login_account_role (id, loginid, roleid, 
+      organid)
+    values (#{id,jdbcType=BIGINT}, #{loginid,jdbcType=BIGINT}, #{roleid,jdbcType=BIGINT}, 
+      #{organid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.core.pojo.LoginAccountRole" >
+    insert into sys_login_account_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="loginid != null" >
+        loginid,
+      </if>
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="organid != null" >
+        organid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="loginid != null" >
+        #{loginid,jdbcType=BIGINT},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=BIGINT},
+      </if>
+      <if test="organid != null" >
+        #{organid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.core.pojo.LoginAccountRole" >
+    update sys_login_account_role
+    <set >
+      <if test="loginid != null" >
+        loginid = #{loginid,jdbcType=BIGINT},
+      </if>
+      <if test="roleid != null" >
+        roleid = #{roleid,jdbcType=BIGINT},
+      </if>
+      <if test="organid != null" >
+        organid = #{organid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.core.pojo.LoginAccountRole" >
+    update sys_login_account_role
+    set loginid = #{loginid,jdbcType=BIGINT},
+      roleid = #{roleid,jdbcType=BIGINT},
+      organid = #{organid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

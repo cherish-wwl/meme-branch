@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeCategory" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="columnid" property="columnid" jdbcType="BIGINT" />
+    <result column="catname" property="catname" jdbcType="VARCHAR" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap type="com.meme.im.pojo.view.MemeCategoryView" id="view" extends="BaseResultMap">
+    <result column="columnname" property="columnname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, columnid, catname, sortno, icon, url, tag, state, description, addtime
+  </sql>
+  <select id="selectAllCats" resultMap="view">
+  	SELECT sec.*,col.columnname
+	FROM meme_category sec
+	INNER JOIN meme_column col ON sec.columnid=col.id
+	ORDER BY sec.columnid,sec.pid,sec.sortno ASC
+  </select>
+  <select id="selectSubCats" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from meme_category where 1=1
+    <if test="columnid != null and columnid != 0">
+    and columnid=#{columnid}
+    </if>
+    <if test="pid != null">
+    and pid=#{pid}
+    </if>
+    ORDER BY sortno ASC
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_category
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from meme_category
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeCategory" >
+    insert into meme_category (id, pid, columnid, 
+      catname, sortno, icon, 
+      url, tag, state, description, 
+      addtime)
+    values (#{id,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{columnid,jdbcType=BIGINT}, 
+      #{catname,jdbcType=VARCHAR}, #{sortno,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemeCategory" >
+    insert into meme_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="columnid != null" >
+        columnid,
+      </if>
+      <if test="catname != null" >
+        catname,
+      </if>
+      <if test="sortno != null" >
+        sortno,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="columnid != null" >
+        #{columnid,jdbcType=BIGINT},
+      </if>
+      <if test="catname != null" >
+        #{catname,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemeCategory" >
+    update meme_category
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="columnid != null" >
+        columnid = #{columnid,jdbcType=BIGINT},
+      </if>
+      <if test="catname != null" >
+        catname = #{catname,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        sortno = #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemeCategory" >
+    update meme_category
+    set pid = #{pid,jdbcType=BIGINT},
+      columnid = #{columnid,jdbcType=BIGINT},
+      catname = #{catname,jdbcType=VARCHAR},
+      sortno = #{sortno,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

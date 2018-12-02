@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemberHobbyMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemberHobby" >
+    <id column="hobbyid" property="hobbyid" jdbcType="VARCHAR" />
+    <result column="memberid" property="memberid" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="extlink" property="extlink" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="ctype" property="ctype" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.meme.im.pojo.MemberHobby" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    hobbyid, memberid, title, cover, summary, extlink, type, ctype, addtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from meme_member_hobby
+    where hobbyid = #{hobbyid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_member_hobby
+    where hobbyid = #{hobbyid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.MemberHobby" >
+    insert into meme_member_hobby (hobbyid, memberid, title, 
+      cover, summary, extlink, 
+      type, ctype, addtime, 
+      content)
+    values (#{hobbyid,jdbcType=VARCHAR}, #{memberid,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{extlink,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{ctype,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.MemberHobby" >
+    insert into meme_member_hobby
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hobbyid != null" >
+        hobbyid,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="extlink != null" >
+        extlink,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="ctype != null" >
+        ctype,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hobbyid != null" >
+        #{hobbyid,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="extlink != null" >
+        #{extlink,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="ctype != null" >
+        #{ctype,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.MemberHobby" >
+    update meme_member_hobby
+    <set >
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="extlink != null" >
+        extlink = #{extlink,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="ctype != null" >
+        ctype = #{ctype,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where hobbyid = #{hobbyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.meme.im.pojo.MemberHobby" >
+    update meme_member_hobby
+    set memberid = #{memberid,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      extlink = #{extlink,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      ctype = #{ctype,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where hobbyid = #{hobbyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.MemberHobby" >
+    update meme_member_hobby
+    set memberid = #{memberid,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      extlink = #{extlink,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      ctype = #{ctype,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP}
+    where hobbyid = #{hobbyid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT 
+  	<include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+	FROM meme_member_hobby o
+	WHERE 1=1
+	<if test="state != null">
+		AND o.state=#{state}
+	</if>
+	<if test="sort != null and sort != ''">order by ${sort} ${order}</if>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*)
+	FROM meme_member_hobby o 
+	WHERE 1=1
+	<if test="state != null">
+		AND o.state=#{state}
+	</if>
+  </select>
+  
+</mapper>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.TvProgramMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.TvProgram" >
+    <id column="programid" property="programid" jdbcType="VARCHAR" />
+    <result column="tvid" property="tvid" jdbcType="VARCHAR" />
+    <result column="program_name" property="programName" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="ptype" property="ptype" jdbcType="INTEGER" />
+    <result column="ptime" property="ptime" jdbcType="TIME" />
+    <result column="istop" property="istop" jdbcType="INTEGER" />
+    <result column="ishotshow" property="ishotshow" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    programid, tvid, program_name, url, ptype, ptime, istop, ishotshow, createtime, sortno
+  </sql>
+  <select id="getTvPrograms" resultType="java.util.HashMap">
+  	SELECT
+  	pro.*,
+  	sat.tv_station
+  	FROM meme_tv_program pro
+  	INNER JOIN meme_tv_station sat on pro.tvid=sat.tvid
+	WHERE 1=1
+	<if test="ishot != null">
+		AND ishotshow=#{ishot}
+	</if>
+	<if test="istop != null">
+		AND istop=#{istop}
+	</if>
+	ORDER BY pro.sortno asc,pro.ptime ASC
+  </select>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT
+  	pro.*,
+  	sat.tv_station
+  	FROM meme_tv_program pro
+  	INNER JOIN meme_tv_station sat on pro.tvid=sat.tvid
+	WHERE 1=1
+	<if test="ishotshow != null">
+		AND ishotshow=#{ishotshow}
+	</if>
+	<if test="istop != null">
+		AND istop=#{istop}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		AND program_name LIKE CONCAT('%', #{searchKey},'%')
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by createtime desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*)
+	FROM meme_tv_program pro
+  	INNER JOIN meme_tv_station sat on pro.tvid=sat.tvid
+	WHERE 1=1
+	<if test="ishotshow != null">
+		AND ishotshow=#{ishotshow}
+	</if>
+	<if test="istop != null">
+		AND istop=#{istop}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		AND program_name LIKE CONCAT('%', #{searchKey},'%')
+	</if>
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_tv_program
+    where programid = #{programid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from meme_tv_program
+    where programid = #{programid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.TvProgram" >
+    insert into meme_tv_program (programid, tvid, program_name, 
+      url, ptype, ptime, istop, 
+      ishotshow, createtime, sortno
+      )
+    values (#{programid,jdbcType=VARCHAR}, #{tvid,jdbcType=VARCHAR}, #{programName,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{ptype,jdbcType=INTEGER}, #{ptime,jdbcType=TIME}, #{istop,jdbcType=INTEGER}, 
+      #{ishotshow,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{sortno,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.TvProgram" >
+    insert into meme_tv_program
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="programid != null" >
+        programid,
+      </if>
+      <if test="tvid != null" >
+        tvid,
+      </if>
+      <if test="programName != null" >
+        program_name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="ptype != null" >
+        ptype,
+      </if>
+      <if test="ptime != null" >
+        ptime,
+      </if>
+      <if test="istop != null" >
+        istop,
+      </if>
+      <if test="ishotshow != null" >
+        ishotshow,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="sortno != null" >
+        sortno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="programid != null" >
+        #{programid,jdbcType=VARCHAR},
+      </if>
+      <if test="tvid != null" >
+        #{tvid,jdbcType=VARCHAR},
+      </if>
+      <if test="programName != null" >
+        #{programName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="ptype != null" >
+        #{ptype,jdbcType=INTEGER},
+      </if>
+      <if test="ptime != null" >
+        #{ptime,jdbcType=TIME},
+      </if>
+      <if test="istop != null" >
+        #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="ishotshow != null" >
+        #{ishotshow,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.TvProgram" >
+    update meme_tv_program
+    <set >
+      <if test="tvid != null" >
+        tvid = #{tvid,jdbcType=VARCHAR},
+      </if>
+      <if test="programName != null" >
+        program_name = #{programName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="ptype != null" >
+        ptype = #{ptype,jdbcType=INTEGER},
+      </if>
+      <if test="ptime != null" >
+        ptime = #{ptime,jdbcType=TIME},
+      </if>
+      <if test="istop != null" >
+        istop = #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="ishotshow != null" >
+        ishotshow = #{ishotshow,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sortno != null" >
+        sortno = #{sortno,jdbcType=INTEGER},
+      </if>
+    </set>
+    where programid = #{programid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.TvProgram" >
+    update meme_tv_program
+    set tvid = #{tvid,jdbcType=VARCHAR},
+      program_name = #{programName,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      ptype = #{ptype,jdbcType=INTEGER},
+      ptime = #{ptime,jdbcType=TIME},
+      istop = #{istop,jdbcType=INTEGER},
+      ishotshow = #{ishotshow,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      sortno = #{sortno,jdbcType=INTEGER}
+    where programid = #{programid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.MemeMovieMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.MemeMovie" >
+    <id column="movieId" property="movieId" jdbcType="BIGINT" />
+    <result column="movieName" property="movieName" jdbcType="VARCHAR" />
+    <result column="movieCategory" property="movieCategory" jdbcType="VARCHAR" />
+    <result column="movieSynopsis" property="movieSynopsis" jdbcType="VARCHAR" />
+    <result column="movieCover" property="movieCover" jdbcType="VARCHAR" />
+    <result column="movieAddr" property="movieAddr" jdbcType="VARCHAR" />
+    <result column="addTime" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="admireNumber" property="admireNumber" jdbcType="BIGINT" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    movieId, movieName, movieSynopsis, movieCover, movieAddr, addTime, admireNumber, account, movieCategory
+  </sql>
+  
+  <select id="selectAllMovies" resultMap="BaseResultMap" >
+  	SELECT 
+    <include refid="Base_Column_List" />
+    FROM meme_im_movie WHERE movieCategory = #{movieCategory} ORDER BY
+    <if test="orderBy==null or orderBy==0" >
+         addTime 
+    </if>
+    <if test="orderBy==1" >
+        admireNumber 
+    </if>
+    DESC
+  </select>
+  
+  <select id="selectById" resultType="com.meme.im.pojo.MemeMovie">
+  		SELECT * FROM meme_im_movie WHERE movieId = #{movieId}
+  </select>
+  
+   <!-- 分页查询电影和会员名 -->
+   <select id="selectAllMoviesAndMembers" resultType="java.util.HashMap" parameterType="com.meme.im.form.MovieForm">
+  	SELECT * FROM meme_im_movie 
+	WHERE 
+	<if test="movieCategory != null and movieCategory != ''">
+		 movieCategory=#{movieCategory}
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">ORDER BY ${sort} ${order}</when>
+		<otherwise>ORDER BY addTime DESC</otherwise>
+	</choose>
+  	LIMIT #{offset},#{limit}
+  </select>
+  <!-- 分页查询电影和会员名数据总条数 -->
+  <select id="totalNum" resultType="java.lang.Integer" parameterType="com.meme.im.form.MovieForm">
+  	SELECT count(*) 
+  	FROM meme_im_movie movie
+	LEFT JOIN meme_member mem ON movie.account = mem.account
+	WHERE 1=1
+	<if test="movieCategory != null and movieCategory != ''">
+		AND movie.movieCategory=#{movieCategory}
+	</if>
+  </select>
+  
+  <!-- 插入电影数据 -->
+  <insert id="insert" parameterType="com.meme.im.pojo.MemeMovie" >
+    INSERT INTO meme_im_movie (movieName, movieCategory, movieSynopsis, movieCover, movieAddr, account, admireNumber, addTime)
+    VALUES (#{movieName,jdbcType=VARCHAR}, #{movieCategory,jdbcType=VARCHAR}, #{movieSynopsis,jdbcType=VARCHAR}, 
+      #{movieCover,jdbcType=VARCHAR}, #{movieAddr,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+      0, #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <!-- 修改电影数据 -->
+  <update id="update" parameterType="com.meme.im.pojo.MemeMovieUpdate" >
+    update meme_im_movie
+    set movieName=#{movieName,jdbcType=VARCHAR},movieSynopsis=#{movieSynopsis,jdbcType=VARCHAR},
+    	movieCover=#{movieCover,jdbcType=VARCHAR}, movieAddr=#{movieAddr,jdbcType=VARCHAR}, account=#{account,jdbcType=VARCHAR}
+    where movieId = #{movieId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 删除电影数据 -->
+  <delete id="deleteMovie" parameterType="java.util.List">
+  	delete from meme_im_movie where movieId in
+  	<foreach collection="ids" item="id"  open="(" close=")" separator="," >
+  		#{id}
+  	</foreach> 
+  </delete>
+  <select id="selectByPaginationView" resultType="java.util.LinkedHashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT
+		con.*,
+		sec.sectionname
+	FROM meme_content con
+	LEFT JOIN meme_column_section sec ON sec.sectioncode = con.sectioncode
+	WHERE 1=1
+	<if test="columnid != null and columnid != 0">
+		AND con.columnid=#{columnid}
+	</if>
+	AND con.sectioncode IS NOT NULL
+	<if test="sectioncode != null and sectioncode !=0">
+		AND con.sectioncode=#{sectioncode}
+	</if>
+	<if test="startdate != null">
+		AND date_format(con.addtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(con.addtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by con.addtime,con.sortno desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT COUNT(*) FROM (SELECT
+		con.*,
+		sec.sectionname
+	FROM meme_content con
+	LEFT JOIN meme_column_section sec ON sec.sectioncode = con.sectioncode
+	WHERE 1=1
+	<if test="columnid != null and columnid != 0">
+		AND con.columnid=#{columnid}
+	</if>
+	AND con.sectioncode IS NOT NULL
+	<if test="sectioncode != null and sectioncode !=0">
+		AND con.sectioncode=#{sectioncode}
+	</if>
+	<if test="startdate != null">
+		AND date_format(con.addtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(con.addtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+	) TMP_T
+  </select>
+</mapper>

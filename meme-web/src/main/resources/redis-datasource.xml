@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:redis="http://www.springframework.org/schema/redis"
+	xsi:schemaLocation="http://www.springframework.org/schema/cache 
+						http://www.springframework.org/schema/cache/spring-cache-4.0.xsd  
+						http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+                        http://www.springframework.org/schema/tx
+                     	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+                     	http://www.springframework.org/schema/redis 
+                     	http://www.springframework.org/schema/redis/spring-redis-1.0.xsd">
+	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations"> <list> <value>classpath:redis.properties</value> 
+		</list> </property> <property name="ignoreUnresolvablePlaceholders" value="true"></property> 
+		</bean> -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxTotal}" />
+		<property name="maxWaitMillis" value="${redis.maxWaitMillis}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+
+	<bean id="connectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="poolConfig" ref="poolConfig" />
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<property name="password" value="${redis.password}" />
+	</bean>
+
+	<!-- 配置RedisTemplate -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="keySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
+		</property>
+		<property name="valueSerializer">
+			<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"></bean>
+		</property>
+
+		<property name="hashKeySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
+		</property>
+		<!-- 使用JacksonJsonRedisSerializer需要引入jar包：barchart-wrap-jackson-1.8.6-build001.jar -->
+		<!-- JacksonJsonRedisSerializer 需要一个有参的构造函数，因此需要配置constructor-arg -->
+		<property name="hashValueSerializer">
+			<bean class="org.springframework.data.redis.serializer.JacksonJsonRedisSerializer">
+				<constructor-arg type="java.lang.Class" value="java.lang.Object"></constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 配置redis连接池 -->
+	<bean class="redis.clients.jedis.JedisPool">
+		<constructor-arg ref="poolConfig" />
+		<constructor-arg value="${redis.host}" />
+		<constructor-arg type="int" value="${redis.port}" />
+		<constructor-arg type="int" value="${redis.timeout}" />
+		<constructor-arg type="java.lang.String" value="${redis.password}" />
+		<constructor-arg type="int" value="${redis.database}" />
+	</bean>
+</beans>

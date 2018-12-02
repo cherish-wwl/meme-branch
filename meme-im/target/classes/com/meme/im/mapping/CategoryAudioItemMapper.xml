@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meme.im.dao.CategoryAudioItemMapper" >
+  <resultMap id="BaseResultMap" type="com.meme.im.pojo.CategoryAudioItem" >
+    <id column="itemid" property="itemid" jdbcType="BIGINT" />
+    <result column="itemname" property="itemname" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="sortno" property="sortno" jdbcType="INTEGER" />
+    <result column="reco_song" property="recoSong" jdbcType="INTEGER" />
+    <result column="reco_mv" property="recoMv" jdbcType="INTEGER" />
+    <result column="reco_audio" property="recoAudio" jdbcType="INTEGER" />
+    <result column="publishtime" property="publishtime" jdbcType="TIMESTAMP" />
+    <result column="audioid" property="audioid" jdbcType="BIGINT" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    itemid, itemname, cover, url, sortno, reco_song, reco_mv, reco_audio, publishtime, 
+    audioid, author
+  </sql>
+  <select id="selectByPaginationView" resultType="java.util.HashMap" parameterType="com.meme.im.form.ImForm">
+  	SELECT 
+	item.*,
+	au.catname
+	FROM meme_category_audio_item item
+	INNER JOIN meme_category_audio au ON au.id=item.audioid
+	WHERE 1=1
+	<if test="reco_song != null">
+		AND item.reco_song=#{reco_song}
+	</if>
+	<if test="reco_mv != null">
+		AND item.reco_mv=#{reco_mv}
+	</if>
+	<if test="reco_audio != null">
+		AND item.reco_audio=#{reco_audio}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and (
+			itemname LIKE CONCAT('%', #{searchKey},'%')
+			or author LIKE CONCAT('%', #{searchKey},'%')
+		)
+	</if>
+	<if test="startdate != null">
+		AND date_format(publishtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(publishtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+	<choose>
+		<when test="sort != null and sort != ''">order by ${sort} ${order}</when>
+		<otherwise>order by publishtime desc</otherwise>
+	</choose>
+  	limit #{offset},#{limit}
+  </select>
+  <select id="countView" resultType="java.lang.Integer" parameterType="com.meme.im.form.ImForm">
+  	SELECT count(*)
+	FROM meme_category_audio_item item
+	INNER JOIN meme_category_audio au ON au.id=item.audioid
+	WHERE 1=1
+	<if test="reco_song != null">
+		AND item.reco_song=#{reco_song}
+	</if>
+	<if test="reco_mv != null">
+		AND item.reco_mv=#{reco_mv}
+	</if>
+	<if test="reco_audio != null">
+		AND item.reco_audio=#{reco_audio}
+	</if>
+	<if test="searchKey != null and searchKey != ''">
+		and (
+			itemname LIKE CONCAT('%', #{searchKey},'%')
+			or author LIKE CONCAT('%', #{searchKey},'%')
+		)
+	</if>
+	<if test="startdate != null">
+		AND date_format(publishtime,'%Y-%m-%d') >= #{startdate}
+	</if>
+	<if test="enddate != null">
+	<![CDATA[
+		AND date_format(publishtime,'%Y-%m-%d') <= #{enddate}
+		]]>
+	</if>
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from meme_category_audio_item
+    where itemid = #{itemid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from meme_category_audio_item
+    where itemid = #{itemid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.meme.im.pojo.CategoryAudioItem" >
+    insert into meme_category_audio_item (itemid, itemname, cover, 
+      url, sortno, reco_song, 
+      reco_mv, reco_audio, publishtime, 
+      audioid, author)
+    values (#{itemid,jdbcType=BIGINT}, #{itemname,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{sortno,jdbcType=INTEGER}, #{recoSong,jdbcType=INTEGER}, 
+      #{recoMv,jdbcType=INTEGER}, #{recoAudio,jdbcType=INTEGER}, #{publishtime,jdbcType=TIMESTAMP}, 
+      #{audioid,jdbcType=BIGINT}, #{author,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meme.im.pojo.CategoryAudioItem" >
+    insert into meme_category_audio_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        itemid,
+      </if>
+      <if test="itemname != null" >
+        itemname,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="sortno != null" >
+        sortno,
+      </if>
+      <if test="recoSong != null" >
+        reco_song,
+      </if>
+      <if test="recoMv != null" >
+        reco_mv,
+      </if>
+      <if test="recoAudio != null" >
+        reco_audio,
+      </if>
+      <if test="publishtime != null" >
+        publishtime,
+      </if>
+      <if test="audioid != null" >
+        audioid,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="itemname != null" >
+        #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="recoSong != null" >
+        #{recoSong,jdbcType=INTEGER},
+      </if>
+      <if test="recoMv != null" >
+        #{recoMv,jdbcType=INTEGER},
+      </if>
+      <if test="recoAudio != null" >
+        #{recoAudio,jdbcType=INTEGER},
+      </if>
+      <if test="publishtime != null" >
+        #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audioid != null" >
+        #{audioid,jdbcType=BIGINT},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meme.im.pojo.CategoryAudioItem" >
+    update meme_category_audio_item
+    <set >
+      <if test="itemname != null" >
+        itemname = #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        sortno = #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="recoSong != null" >
+        reco_song = #{recoSong,jdbcType=INTEGER},
+      </if>
+      <if test="recoMv != null" >
+        reco_mv = #{recoMv,jdbcType=INTEGER},
+      </if>
+      <if test="recoAudio != null" >
+        reco_audio = #{recoAudio,jdbcType=INTEGER},
+      </if>
+      <if test="publishtime != null" >
+        publishtime = #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audioid != null" >
+        audioid = #{audioid,jdbcType=BIGINT},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where itemid = #{itemid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meme.im.pojo.CategoryAudioItem" >
+    update meme_category_audio_item
+    set itemname = #{itemname,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      sortno = #{sortno,jdbcType=INTEGER},
+      reco_song = #{recoSong,jdbcType=INTEGER},
+      reco_mv = #{recoMv,jdbcType=INTEGER},
+      reco_audio = #{recoAudio,jdbcType=INTEGER},
+      publishtime = #{publishtime,jdbcType=TIMESTAMP},
+      audioid = #{audioid,jdbcType=BIGINT},
+      author = #{author,jdbcType=VARCHAR}
+    where itemid = #{itemid,jdbcType=BIGINT}
+  </update>
+</mapper>

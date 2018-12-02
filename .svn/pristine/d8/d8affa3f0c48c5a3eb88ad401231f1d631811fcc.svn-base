@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.meme.pay</groupId>
+  <artifactId>meme-pay</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+  <name>meme-pay</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<core.version>1.0</core.version>
+		<jar.version>1.0</jar.version>
+		<im.version>1.0</im.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.meme.jar</groupId>
+			<artifactId>meme-jar</artifactId>
+			<version>${jar.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.meme.core</groupId>
+			<artifactId>meme-core</artifactId>
+			<version>${core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.meme.im</groupId>
+			<artifactId>meme-im</artifactId>
+			<version>${im.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>meme-pay</finalName>
+		<defaultGoal>compile</defaultGoal>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+</project>
